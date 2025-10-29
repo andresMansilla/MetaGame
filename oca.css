@@ -1,0 +1,70 @@
+/* Reset rápido */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+  background-color: #222;
+  color: white;
+  padding: 15px 0;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Layout principal */
+main {
+  display: flex;
+  height: calc(100vh - 60px); /* ocupa toda la pantalla menos el header */
+}
+
+/* Barra lateral */
+.estadisticas {
+  width: 25%;
+  background-color: #cce5ff;
+  padding: 20px;
+  border-right: 2px solid #99c2ff;
+}
+
+/* Contenido principal */
+.contenido {
+  width: 75%;
+  background-color: #e6ffe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Zona de juego */
+.juego {
+  text-align: center;
+}
+
+.btn-jugar {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
