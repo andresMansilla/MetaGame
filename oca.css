@@ -41,7 +41,7 @@ main {
   width: 25%;
   background-color: #cce5ff;
   padding: 20px;
-  border-right: 2px solid #99c2ff;
+  border-right: 2px solid #99ffff;
 }
 
 /* Contenido principal */
@@ -61,7 +61,7 @@ main {
 .btn-jugar {
   margin-top: 20px;
   padding: 10px 25px;
-  background-color: #007bff;
+  background-color: #09ff00;
   border: none;
   color: white;
   font-size: 16px;
