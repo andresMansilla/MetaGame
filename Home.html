@@ -11,15 +11,15 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Header */
+   
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 120px; /* más alto */
+      height: 50px; 
       padding: 20px 40px;
-      background: linear-gradient(135deg, #1e3c72, #2a5298); /* estilo oceánico */
+      background: linear-gradient(135deg, #1e3c72, #2a5298); 
       color: white;
       z-index: 2;
       display: flex;
@@ -42,13 +42,13 @@
       color: #00ffff;
     }
 
-    /* Footer */
+    
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 150px; /* bastante más alto */
+      height: 50px; 
       padding: 20px 40px;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
@@ -62,7 +62,7 @@
       border-top-right-radius: 20px;
     }
 
-    /* Fondo 3D */
+    
     #escena {
       position: fixed;
       top: 0; left: 0;
@@ -71,7 +71,6 @@
       z-index: 0;
     }
 
-    /* Botones sobre el modelo */
     .boton3d {
       position: absolute;
       cursor: pointer;
@@ -85,7 +84,7 @@
       transform: scale(1.1);
     }
 
-    /* Posición de las cartas UNO */
+  
     #uno1 {
       top: 50%;
       left: 35%;
@@ -96,7 +95,7 @@
       left: 55%;
     }
 
-    /* Imagen representativa de cada carta */
+    
     .boton3d img {
       width: 100%;
       height: 100%;
@@ -106,7 +105,7 @@
 </head>
 <body>
 
-  <!-- Header con menú -->
+
   <header>
     <div>🎮 MetaGame Lobby</div>
     <nav>
@@ -117,19 +116,19 @@
     </nav>
   </header>
 
-  <!-- Fondo 3D -->
+ 
   <model-viewer id="escena" src="modelos/mesa.glb" camera-controls auto-rotate></model-viewer>
 
-  <!-- Cartas UNO como botones -->
-  <div id="uno1" class="boton3d" onclick="window.location.href='juego1.html'">
+  
+  <div id="uno1" class="boton3d" onclick="window.location.href='oca.html'">
     <img src="uno1.png" alt="Juego UNO 1">
   </div>
 
-  <div id="uno2" class="boton3d" onclick="window.location.href='juego2.html'">
+  <div id="uno2" class="boton3d" onclick="window.location.href='uno.html'">
     <img src="uno2.png" alt="Juego UNO 2">
   </div>
 
-  <!-- Footer -->
+  
   <footer>
     <div>© 2025 MetaGame</div>
     <div>Contacto: info@metagame.com</div>
