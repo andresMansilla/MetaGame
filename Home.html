@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>MetaGame</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
       margin: 0;
@@ -11,64 +10,34 @@
       font-family: Arial, sans-serif;
     }
 
-   
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 50px; 
+      height: 50px;
       padding: 20px 40px;
-      background: linear-gradient(135deg, #1e3c72, #2a5298); 
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: white;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
     }
 
-    header nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 30px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    header nav a:hover {
-      color: #00ffff;
-    }
-
-    
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 50px; 
+      height: 50px;
       padding: 20px 40px;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
-      z-index: 2;
+      z-index: 3;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-    }
-
-    
-    #escena {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
     }
 
     .boton3d {
@@ -76,66 +45,60 @@
       cursor: pointer;
       width: 100px;
       height: 150px;
-      transition: transform 0.3s;
-      z-index: 1;
+      z-index: 4;
     }
 
-    .boton3d:hover {
-      transform: scale(1.1);
-    }
+    #uno1 { top: 50%; left: 35%; }
+    #uno2 { top: 50%; left: 55%; }
 
-  
-    #uno1 {
-      top: 50%;
-      left: 35%;
-    }
-
-    #uno2 {
-      top: 50%;
-      left: 55%;
-    }
-
-    
     .boton3d img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
     }
+
+    /* Canvas 3D */
+    #three-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+
   </style>
 </head>
 <body>
 
-
   <header>
-    <div>🎮 MetaGame Lobby
+    <div>MetaGame Lobby
       <h3>Tu tablero, tus carta, tu victoria</h3>
     </div>
     <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Juegos</a>
-      <a href="#">Perfil</a>
-      <a href="#">Contacto</a>
+      <a href="Home.html">Inicio</a>
+      <a href="oca.html">Juego de la oca</a>
+      <a href="uno.html">UNO</a>
     </nav>
   </header>
 
- 
-  <model-viewer id="escena" src="modelos/mesa.glb" camera-controls auto-rotate></model-viewer>
-
-  
+  <!-- Botones (no uses mesa.glb como imagen) -->
   <div id="uno1" class="boton3d" onclick="window.location.href='oca.html'">
     <img src="uno1.png" alt="Juego Oca">
   </div>
 
   <div id="uno2" class="boton3d" onclick="window.location.href='uno.html'">
-    <img src="uno2.png" alt="Juego UNO ">
+    <img src="uno2.png" alt="Juego UNO">
   </div>
 
-  
+  <!-- Canvas para el modelo 3D -->
+  <canvas id="three-canvas"></canvas>
+
   <footer>
     <div>© 2025 MetaGame</div>
-    <div>Contacto: info@metagame.com</div>
-    <div>Síguenos en redes: Twitter | Instagram | Discord</div>
   </footer>
+
+  <!-- Tu script de Three.js -->
+  <script type="module" src="script.js"></script>
 
 </body>
 </html>
