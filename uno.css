@@ -59,6 +59,7 @@ header {
 main {
   display: flex;
   height: calc(100vh - 60px); /* ocupa toda la pantalla menos el header */
+  margin-top: 100px; /* igual a la altura del header */
 }
 
 /* Barra lateral */
