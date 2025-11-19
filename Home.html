@@ -7,7 +7,17 @@
     body {
       margin: 0;
       overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+
+    /* Contenedores de Interfaz (UI) deben estar encima del 3D */
+    header, footer, .boton3d {
+      position: fixed; /* O absolute, pero fijo es mejor para UI */
+      z-index: 3; /* Asegura que estén encima del canvas (z-index: 1) */
+      color: white;
+      box-sizing: border-box;
+      backdrop-filter: blur(5px); /* Pequeño efecto de desenfoque */
+      background-color: rgba(30, 60, 114, 0.7); /* Fondo semi-transparente */
     }
 
     header {
@@ -23,6 +33,38 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0 0 15px 15px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FFD700;
+    }
+
+    header h3 {
+      margin: 0;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: #d0d8ff;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 5px 10px;
+      font-weight: 600;
+      transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      color: #1e3c72;
+      background-color: #ffd700;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
     footer {
@@ -38,6 +80,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 0.8rem;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px 15px 0 0;
     }
 
     .boton3d {
@@ -98,7 +143,7 @@
   </footer>
 
   <!-- Tu script de Three.js -->
-  <script type="module" src="script.js"></script>
+  <script type="module" src="mesa.js"></script>
 
 </body>
 </html>
