@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página de Juego</title>
-<link rel="stylesheet" href="oca.css">
- 
+  <link rel="stylesheet" href="oca.css">
 </head>
 <body>
   <header>
@@ -23,28 +22,23 @@
       <h2>Estadísticas</h2>
       <p>Contenido de ejemplo...</p>
       <br>
-      <table class="cubos">
-          <thead>
-            <tr>
-              <th><div id='model-cuboA'></div></th>
-              <th></th>
-            </tr>
-            <tr>
-              <th><div id='model-cuboR'></div></th>
-              <th></th>
-            </tr>
-                 <tr>
-              <th><div id='model-cuboAz'></div></th>
-              <th></th>
-            </tr>
-            <tr>
-              <th><div id='model-cuboV'></div></th>
-              <th></th>
-            </tr>
-          </thead>
-        </table>
+      <table id="cubos">
+        <thead>
+          <tr>
+            <th><div id='model-cuboA' class="medida-cubo"></div></th>    
+          </tr>
+          <tr>
+            <th><div id='model-cuboR' class="medida-cubo"></div></th>    
+          </tr>
+          <tr>
+            <th><div id='model-cuboAz' class="medida-cubo"></div></th>   
+          </tr>
+          <tr>
+            <th><div id='model-cuboV' class="medida-cubo"></div></th>
+          </tr>
+        </thead>
+      </table>
     </aside>
-
     <section class="contenido">
       <div class="tabla-container">
         <table>
@@ -52,7 +46,7 @@
             <tr>
               <th>Jugador Amarillo</th>
               <th>Jugador Rojo</th>
-              <th>Juagdor Azul</th>
+              <th>Jugador Azul</th>
               <th>Jugador Verde</th>
             </tr>
           </thead>
@@ -79,6 +73,7 @@
     <div>Contacto: info@metagame.com</div>
     <div>Síguenos en redes: Twitter | Instagram | Discord</div>
   </footer>
+
   <script type="importmap">
     {
       "imports": {
@@ -86,7 +81,6 @@
         "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
       }
     }
-    
   </script>
   <script type="module" src="script.js"></script>
 </body>

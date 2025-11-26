@@ -87,19 +87,19 @@ if (document.readyState === 'loading') {
         loadModel('model-yellow', './modelos/patoamarillo.glb');
         loadModel('model-red', './modelos/pokeballrojo.glb');
         loadModel('model-blue', './modelos/diamante.glb');
-        loadModel('model-green', './modelos/nave.glb');
+        loadModel('model-green', './modelos/nave1.glb');
         loadModel('model-cuboA', './modelos/cuboamarillo.glb');
         loadModel('model-cuboR', './modelos/cuborojo.glb');
         loadModel('model-cuboAz', './modelos/cuboazul.glb');
-        loadModel('model-cuboV', './modelos/cuboverdes.glb');
+        loadModel('model-cuboV', './modelos/cuboverde.glb');
     });
 } else {
     loadModel('model-yellow', './modelos/patoamarillo.glb');
     loadModel('model-red', './modelos/pokeballrojo.glb');
     loadModel('model-blue', './modelos/diamante.glb');
-    loadModel('model-green', './modelos/nave.glb');
+    loadModel('model-green', './modelos/nave1.glb');
     loadModel('model-cuboA', './modelos/cuboamarillo.glb');
     loadModel('model-cuboR', './modelos/cuborojo.glb');
     loadModel('model-cuboAz', './modelos/cuboazul.glb');
-    loadModel('model-cuboV', './modelos/cuboverdes.glb');
+    loadModel('model-cuboV', './modelos/cuboverde.glb');
 }
