@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function loadModel(containerId, modelPath) {
+function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null) {
     console.log('Cargando modelo:', containerId, modelPath);
     const container = document.getElementById(containerId);
 
@@ -54,8 +54,17 @@ function loadModel(containerId, modelPath) {
             // Escalar para llenar el contenedor
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 2.6 / maxDim; // Escala más grande para llenar el espacio
+            const scale = escala / maxDim; // Escala más grande para llenar el espacio
+            
+            // Escalem.
             model.scale.setScalar(scale);
+
+            // Ajuste de posición si se proporciona.
+            if (ajusteDesplazamiento == null){
+                model.position.set(model.position.x, model.position.y, model.position.z);
+            } else {
+                model.position.set(model.position.x + ajusteDesplazamiento.x, model.position.y + ajusteDesplazamiento.y, model.position.z + ajusteDesplazamiento.z);
+            }
 
             scene.add(model);
 
@@ -96,10 +105,10 @@ if (document.readyState === 'loading') {
 } else {
     loadModel('model-yellow', './modelos/patoamarillo.glb');
     loadModel('model-red', './modelos/pokeballrojo.glb');
-    loadModel('model-blue', './modelos/diamante.glb');
+    loadModel('model-blue', './modelos/diamante.glb', 1.8);
     loadModel('model-green', './modelos/nave1.glb');
-    loadModel('model-cuboA', './modelos/cuboamarillo.glb');
-    loadModel('model-cuboR', './modelos/cuborojo.glb');
+    loadModel('model-cuboA', './modelos/cuboamarillo.glb', 2.5, {x:-0.8, y:-0.2, z:0});
+    loadModel('model-cuboR', './modelos/cuborojo1.glb');
     loadModel('model-cuboAz', './modelos/cuboazul.glb');
-    loadModel('model-cuboV', './modelos/cuboverde.glb');
+    loadModel('model-cuboV', './modelos/cuboverde.glb', 2, {x:-3, y:-0.2, z:0});
 }
