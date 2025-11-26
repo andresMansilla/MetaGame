@@ -1,97 +1,57 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  margin: 0;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
+    overflow: hidden; 
+    font-family: Arial, sans-serif;
 }
 
-/* Header */
+/* ===============================
+    Header y Footer (UI)
+=============================== */
+header, footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 10; 
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+}
+
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  padding: 20px 40px;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: white;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+    top: 0;
+    height: 80px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease;
 }
 
-header nav a {
-  color: white;
-  text-decoration: none;
-  margin-left: 30px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-header nav a:hover {
-  color: #00ffff;
-}
-
-/* Footer */
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 150px;
-  padding: 20px 40px;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: white;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+    bottom: 0;
+    height: 60px;
+    justify-content: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
-/* Fondo 3D */
-#escena {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
+/* ===============================
+    Fondo 3D (Canvas)
+=============================== */
+#three-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
 }
 
-/* Botones sobre el modelo */
-.boton3d {
-  position: absolute;
-  cursor: pointer;
-  width: 100px;
-  height: 150px;
-  transition: transform 0.3s;
-  z-index: 1;
-}
-
-.boton3d:hover {
-  transform: scale(1.1);
-}
-
-/* Posición de las cartas */
-#uno1 {
-  top: 50%;
-  left: 35%;
-}
-
-#uno2 {
-  top: 50%;
-  left: 55%;
-}
-
-/* Imagen de las cartas */
-.boton3d img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+/* ⚠️ ELIMINADAS: Todas las reglas relacionadas con .game-card y sus IDs */
