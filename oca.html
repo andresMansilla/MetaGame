@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página de Juego</title>
 <link rel="stylesheet" href="oca.css">
+ 
 </head>
 <body>
   <header>
@@ -21,6 +22,27 @@
     <aside class="estadisticas">
       <h2>Estadísticas</h2>
       <p>Contenido de ejemplo...</p>
+      <br>
+      <table class="cubos">
+          <thead>
+            <tr>
+              <th><div id='model-cuboA'></div></th>
+              <th></th>
+            </tr>
+            <tr>
+              <th><div id='model-cuboR'></div></th>
+              <th></th>
+            </tr>
+                 <tr>
+              <th><div id='model-cuboAz'></div></th>
+              <th></th>
+            </tr>
+            <tr>
+              <th><div id='model-cuboV'></div></th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
     </aside>
 
     <section class="contenido">
@@ -36,10 +58,10 @@
           </thead>
           <tbody>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td class="medida"><div id='model-yellow'></div></td>
+              <td class="medida"><div id='model-red'></div></td>
+              <td class="medida"><div id='model-blue'></div></td>
+              <td class="medida"><div id='model-green'></div></td>
             </tr>
           </tbody>
         </table>
@@ -57,5 +79,15 @@
     <div>Contacto: info@metagame.com</div>
     <div>Síguenos en redes: Twitter | Instagram | Discord</div>
   </footer>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+    
+  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>

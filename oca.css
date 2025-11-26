@@ -1,151 +1,173 @@
- * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 80px;
-      padding: 20px 40px;
-      background: linear-gradient(135deg, #000000, #82f0ff);
-      color: white;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #000000, #82f0ff);
+  color: white;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 
-    header div:first-child {
-      font-size: 24px;
-      font-weight: bold;
-    }
+header div:first-child {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-    nav {
-      display: flex;
-      gap: 25px;
-    }
+nav {
+  display: flex;
+  gap: 25px;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
 
-    nav a:hover {
-      color: #000000;
-    }
+nav a:hover {
+  color: #000000;
+}
 
-    main {
-      display: flex;
-      margin-top: 80px;
-      min-height: calc(100vh - 230px);
-    }
+main {
+  display: flex;
+  margin-top: 80px;
+  min-height: calc(100vh - 230px);
+}
 
-    .estadisticas {
-      width: 220px;
-      background-color: #abebf0;
-      padding: 20px;
-    }
+.estadisticas {
+  width: 220px;
+  background-color: #abebf0;
+  padding: 20px;
+}
 
-    .estadisticas h2 {
-      margin-bottom: 15px;
-      font-size: 20px;
-     
-    }
+.estadisticas h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
 
-    .contenido {
-      flex: 1;
-      background-color: #ffffff;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 30px;
-      
-    }
+.contenido {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 30px;
+}
 
-    .tabla-container {
-      background-color: rgb(255, 255, 255);
-      padding: 20px;
-      position: absolute;
-      top: 90px;
-      left: 230px;
-    }
+.tabla-container {
+  background-color: rgb(255, 255, 255);
+  padding: 15px;
+  position: absolute;
+  top: 90px;
+  left: 230px;
+}
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      min-width: 400px;
-      
-    }
-    table, th, td {
-      border: 2px solid #82f0ff;
-      border-collapse: collapse;
-    }
-    table th {
-      background-color: #010501;
-      color: white;
-      padding: 12px;
-      text-align: left;
-      font-weight: bold;
-    }
+table {
+  border-collapse: collapse;
+  width: auto;
+}
 
-    table td {
-      padding: 10px 12px;
-    }
+table, th, td {
+  border: 2px solid #82f0ff;
+  border-collapse: collapse;
+}
 
-    table tr:hover {
-      background-color: #f3f3f3;
-    }
+table th {
+  background-color: #010501;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
 
-    .juego {
-      text-align: center;
-      margin-top: 300px;
-    }
+table td {
+  padding: 5px;
+}
 
-    .juego h1 {
-      margin-bottom: 20px;
-    }
+table tr:hover {
+  background-color: #f3f3f3;
+}
 
-    .btn-jugar {
-      padding: 12px 30px;
-      background-color: #09ff00;
-      border: none;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+.juego {
+  text-align: center;
+  margin-top: 300px;
+}
 
-    .btn-jugar:hover {
-      background-color: #07cc00;
-    }
+.juego h1 {
+  margin-bottom: 20px;
+}
 
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 150px;
-      padding: 20px 40px;
-      color: white;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-        background: linear-gradient(135deg, #000000, #82f0ff);
-    }
+.btn-jugar {
+  padding: 12px 30px;
+  background-color: #09ff00;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.medida {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  padding: 0;
+}
+
+#model-yellow,
+#model-red,
+#model-blue {
+  width: 100%;
+  height: 100%;
+}
+
+#model-yellow canvas,
+#model-red canvas,
+#model-blue canvas {
+  background: transparent !important;
+}
+
+.btn-jugar:hover {
+  background-color: #07cc00;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  padding: 20px 40px;
+  color: white;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #000000, #82f0ff);
+}
+.cubos {
+background-color: #abebf0;
+}
