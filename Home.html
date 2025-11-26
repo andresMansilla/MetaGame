@@ -10,18 +10,16 @@
       font-family: 'Inter', Arial, sans-serif;
     }
 
-    /* Contenedores de Interfaz (UI) deben estar encima del 3D */
     header, footer, .boton3d {
-      position: fixed; /* O absolute, pero fijo es mejor para UI */
-      z-index: 3; /* Asegura que estén encima del canvas (z-index: 1) */
+      position: fixed;
+      z-index: 3;
       color: white;
       box-sizing: border-box;
-      backdrop-filter: blur(5px); /* Pequeño efecto de desenfoque */
-      background-color: rgba(30, 60, 114, 0.7); /* Fondo semi-transparente */
+      backdrop-filter: blur(5px);
+      background-color: rgba(30, 60, 114, 0.7);
     }
 
     header {
-      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -29,7 +27,6 @@
       padding: 20px 40px;
       background: linear-gradient(135deg, #1e3c72, #2a5298);
       color: white;
-      z-index: 3;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -57,7 +54,7 @@
       margin: 0 15px;
       padding: 5px 10px;
       font-weight: 600;
-      transition: color 0.3s, background-color 0.3s, border-radius 0.3s;
+      transition: 0.3s;
       border-radius: 8px;
     }
 
@@ -68,7 +65,6 @@
     }
 
     footer {
-      position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -76,7 +72,6 @@
       padding: 20px 40px;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
-      z-index: 3;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -86,7 +81,6 @@
     }
 
     .boton3d {
-      position: absolute;
       cursor: pointer;
       width: 100px;
       height: 150px;
@@ -109,16 +103,18 @@
       width: 100vw;
       height: 100vh;
       z-index: 1;
+      display: block;
     }
-
   </style>
 </head>
 <body>
 
   <header>
-    <div>MetaGame Lobby
-      <h3>Tu tablero, tus carta, tu victoria</h3>
+    <div>
+      <h1>MetaGame Lobby</h1>
+      <h3>Tu tablero, tus cartas, tu victoria</h3>
     </div>
+
     <nav>
       <a href="Home.html">Inicio</a>
       <a href="oca.html">Juego de la oca</a>
@@ -126,7 +122,6 @@
     </nav>
   </header>
 
-  <!-- Botones (no uses mesa.glb como imagen) -->
   <div id="uno1" class="boton3d" onclick="window.location.href='oca.html'">
     <img src="uno1.png" alt="Juego Oca">
   </div>
@@ -135,14 +130,24 @@
     <img src="uno2.png" alt="Juego UNO">
   </div>
 
-  <!-- Canvas para el modelo 3D -->
+  <!-- Canvas para Three.js -->
   <canvas id="three-canvas"></canvas>
 
   <footer>
     <div>© 2025 MetaGame</div>
   </footer>
 
-  <!-- Tu script de Three.js -->
+  <!-- Importmap para Three.js -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <!-- Cargar tu script -->
   <script type="module" src="mesa.js"></script>
 
 </body>
