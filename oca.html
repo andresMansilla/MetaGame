@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Página de Juego</title>
-<link rel="stylesheet" href="oca.css">
- 
+  <link rel="stylesheet" href="oca.css">
 </head>
 <body>
   <header>
@@ -23,37 +22,33 @@
       <h2>Estadísticas</h2>
       <p>Contenido de ejemplo...</p>
       <br>
-      <table class="cubos">
-          <thead>
-            <tr>
-              <th><div id='model-cuboA'></div></th>
-              <th></th>
-            </tr>
-            <tr>
-              <th><div id='model-cuboR'></div></th>
-              <th></th>
-            </tr>
-                 <tr>
-              <th><div id='model-cuboAz'></div></th>
-              <th></th>
-            </tr>
-            <tr>
-              <th><div id='model-cuboV'></div></th>
-              <th></th>
-            </tr>
-          </thead>
-        </table>
+      <table id="cubos">
+        <thead>
+          <tr id="amarillo">
+            <th><div id='model-cuboA' class="medida-cubo"></div></th> 
+            <th>ddddddd</th>
+          </tr>
+          <tr  id="rojo">
+            <th><div id='model-cuboR' class="medida-cubo"></div></th>    
+          </tr >
+          <tr id ="azul">
+            <th><div id='model-cuboAz' class="medida-cubo"></div></th>   
+          </tr>
+          <tr id ="verde">
+            <th><div id='model-cuboV' class="medida-cubo"></div></th>
+          </tr>
+        </thead>
+      </table>
     </aside>
-
     <section class="contenido">
       <div class="tabla-container">
         <table>
           <thead>
             <tr>
-              <th>Jugador Amarillo</th>
-              <th>Jugador Rojo</th>
-              <th>Juagdor Azul</th>
-              <th>Jugador Verde</th>
+              <th class ="jugadores">Jugador Amarillo</th>
+              <th class ="jugadores">Jugador Rojo</th>
+              <th class ="jugadores">Jugador Azul</th>
+              <th class ="jugadores">Jugador Verde</th>  
             </tr>
           </thead>
           <tbody>
@@ -79,6 +74,7 @@
     <div>Contacto: info@metagame.com</div>
     <div>Síguenos en redes: Twitter | Instagram | Discord</div>
   </footer>
+
   <script type="importmap">
     {
       "imports": {
@@ -86,8 +82,7 @@
         "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
       }
     }
-    
   </script>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="oca.js"></script>
 </body>
 </html>

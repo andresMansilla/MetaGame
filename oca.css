@@ -52,15 +52,36 @@ main {
   min-height: calc(100vh - 230px);
 }
 
+/* --- Estadísticas compactas --- */
 .estadisticas {
-  width: 220px;
+  width: 180px; /* Más pequeño */
   background-color: #abebf0;
-  padding: 20px;
+  padding: 15px;
 }
 
 .estadisticas h2 {
-  margin-bottom: 15px;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.estadisticas table {
+  width: 100%;
+  border: 1px solid #82f0ff;
+  border-collapse: collapse;
+  font-size: 12px; /* Texto más pequeño */
+}
+
+.estadisticas th, .estadisticas td {
+  padding: 4px;
+  text-align: center;
+}
+.cubos{
+  background-color: #82f0ff;
+}
+.medida-cubo {
+  width: 50px;
+  height: 50px;
+  ;
 }
 
 .contenido {
@@ -86,11 +107,48 @@ table {
 }
 
 table, th, td {
-  border: 2px solid #82f0ff;
+  border: 2px solid #000000;
   border-collapse: collapse;
 }
 
-table th {
+
+#amarillo{
+  background-color: #f5a64c;
+    color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+
+}
+#rojo{
+  background-color: #abebf0;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+
+}
+#azul{
+  background-color: #abebf0;
+    color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+
+}
+#verde{
+  background-color: #abebf0;
+    color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+
+}
+.jugadores{
   background-color: #010501;
   color: white;
   padding: 8px 12px;
@@ -98,7 +156,6 @@ table th {
   font-weight: bold;
   font-size: 14px;
 }
-
 table td {
   padding: 5px;
 }
@@ -128,6 +185,10 @@ table tr:hover {
   transition: background-color 0.3s;
 }
 
+.btn-jugar:hover {
+  background-color: #07cc00;
+}
+
 .medida {
   width: 150px;
   height: 150px;
@@ -148,10 +209,6 @@ table tr:hover {
   background: transparent !important;
 }
 
-.btn-jugar:hover {
-  background-color: #07cc00;
-}
-
 footer {
   position: fixed;
   bottom: 0;
@@ -167,7 +224,4 @@ footer {
   align-items: center;
   gap: 10px;
   background: linear-gradient(135deg, #000000, #82f0ff);
-}
-.cubos {
-background-color: #abebf0;
 }
