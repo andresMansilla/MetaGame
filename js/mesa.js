@@ -1,138 +1,141 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// 1️⃣ Canvas y Renderer
+// Canvas
 const canvas = document.querySelector('#three-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
-// 2️⃣ Escena y cámara
+// Escena y cámara
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xe6ffe6);
 
 const camera = new THREE.PerspectiveCamera(
-    60,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
+  60,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
 );
+
 camera.position.set(0, 12, 20);
 camera.lookAt(0, 0, 0);
 
-// 3️⃣ Luces
-const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-scene.add(ambient);
+// Luces
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const shadow = new THREE.DirectionalLight(0xffffff, 0.9);
+shadow.position.set(10, 20, 10);
+scene.add(shadow);
 
-const directional = new THREE.DirectionalLight(0xffffff, 0.9);
-directional.position.set(10, 20, 10);
-scene.add(directional);
-
-// 4️⃣ Loader
 const loader = new GLTFLoader();
 
-// Objetos clicables
 let clickableObjects = [];
 
-// 4a️⃣ Mesa
-let mesa;
-loader.load(
-    'modelos/mesa.glb',
-    (gltf) => {
-        mesa = gltf.scene;
-        mesa.scale.set(6, 6, 6); // más grande
-        mesa.position.set(0, -2, 0);
-        scene.add(mesa);
+// -------------------------------------------
+// FUNCIÓN: convierte un DIV a punto 3D exacto
+// -------------------------------------------
+function divTo3D(divId) {
+  const div = document.getElementById(divId);
+  const rect = div.getBoundingClientRect();
 
-        // Después de cargar mesa, cargamos objetos
-        cargarObjetos();
-    },
-    undefined,
-    (err) => console.error('Error cargando mesa.glb:', err)
-);
+  // centro del div
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
 
-// 4b️⃣ Función para cargar los objetos encima de la mesa
-function cargarObjetos() {
-    // Bloque Verde (lleva a uno.html)
-   // Bloque Verde (lleva a uno.html)
-loader.load(
-    'modelos/bloquoverde.glb',
-    (gltf) => {
-        const bloque = gltf.scene;
-        bloque.scale.set(1.5, 1.5, 1.5);
+  // normalizar a coordenadas (-1,1)
+  const x = (cx / window.innerWidth) * 2 - 1;
+  const y = - (cy / window.innerHeight) * 2 + 1;
 
-        // Subimos por encima de la mesa
-        bloque.position.set(-3, 4, 0); // y=4 para que esté arriba
-        bloque.rotation.y = Math.PI / 8;
-        scene.add(bloque);
+  // convertir a vector 3D enfrente de la cámara
+  const vector = new THREE.Vector3(x, y, 0.5);
+  vector.unproject(camera);
 
-        clickableObjects.push({ obj: bloque, url: 'uno.html' });
-    },
-    undefined,
-    (err) => console.error('Error cargando bloquoverde.glb:', err)
-);
+  const dir = vector.sub(camera.position).normalize();
+  const distance = (0 - camera.position.y) / dir.y;  // plano Y = 0
+  const pos = camera.position.clone().add(dir.multiplyScalar(distance));
 
-// Tablero Oca (lleva a oca.html)
-loader.load(
-    'modelos/tableroOca.glb',
-    (gltf) => {
-        const tablero = gltf.scene;
-        tablero.scale.set(1.8, 1.8, 1.8);
-
-        // Subimos por encima de la mesa
-        tablero.position.set(3, 4, 0); // y=4 para que esté arriba
-        tablero.rotation.y = -Math.PI / 8;
-        scene.add(tablero);
-
-        clickableObjects.push({ obj: tablero, url: 'oca.html' });
-    },
-    undefined,
-    (err) => console.error('Error cargando tableroOca.glb:', err)
-);
-
+  return pos;
 }
 
-// 5️⃣ Raycaster para clicks
+// -------------------------------------------
+// CARGAR MESA
+// -------------------------------------------
+loader.load("modelos/mesa.glb", (gltf) => {
+  const mesa = gltf.scene;
+  mesa.scale.set(6, 6, 6);
+  mesa.position.set(0, -2, 0);
+  scene.add(mesa);
+
+  loadObjects();
+});
+
+// -------------------------------------------
+// CARGAR OBJETOS SOBRE LOS DIVS
+// -------------------------------------------
+function loadObjects() {
+
+  // 📌 posición exacta sobre el div UNO (bloque)
+  const p1 = divTo3D("uno1");
+
+  loader.load("modelos/1verde.glb", (gltf) => {
+    const obj = gltf.scene;
+    obj.scale.set(1.4, 1.4, 1.4);
+    obj.position.copy(p1);
+    obj.rotation.y = Math.PI / 8;
+    scene.add(obj);
+    clickableObjects.push({ obj, url: "uno.html" });
+  });
+
+  // 📌 posición exacta sobre el div DOS (pato)
+  const p2 = divTo3D("uno2");
+
+  loader.load("modelos/patoamarillo.glb", (gltf) => {
+    const obj = gltf.scene;
+    obj.scale.set(1.6, 1.6, 1.6);
+    obj.position.copy(p2);
+    obj.rotation.y = -Math.PI / 8;
+    scene.add(obj);
+    clickableObjects.push({ obj, url: "oca.html" });
+  });
+}
+
+// -------------------------------------------
+// CLICK 3D → redirección
+// -------------------------------------------
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
-function onClick(event) {
-    // Convertir coordenadas del mouse a rango [-1,1]
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+window.addEventListener("click", (e) => {
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-    raycaster.setFromCamera(mouse, camera);
+  raycaster.setFromCamera(mouse, camera);
 
-    const intersects = raycaster.intersectObjects(
-        clickableObjects.map(o => o.obj), true
+  const intersect = raycaster.intersectObjects(
+    clickableObjects.map(o => o.obj), true
+  );
+
+  if (intersect.length > 0) {
+    const found = clickableObjects.find(o =>
+      intersect[0].object === o.obj ||
+      intersect[0].object.parent === o.obj
     );
+    if (found) window.location.href = found.url;
+  }
+});
 
-    if (intersects.length > 0) {
-        const clicked = clickableObjects.find(o => o.obj === intersects[0].object || intersects[0].object.parent === o.obj);
-        if (clicked) {
-            window.location.href = clicked.url;
-        }
-    }
-}
-window.addEventListener('click', onClick);
-
-// 6️⃣ Animación
+// -------------------------------------------
+// LOOP DE RENDER (estático)
+// -------------------------------------------
 function animate() {
-    requestAnimationFrame(animate);
-
-    // Rotación lenta de la mesa
-    if (mesa) mesa.rotation.y += 0.002;
-
-    renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
 }
 animate();
 
-// 7️⃣ Ajuste de ventana
-window.addEventListener('resize', () => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-
-    renderer.setSize(w, h);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+// Ajuste ventana
+window.addEventListener("resize", () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 });
