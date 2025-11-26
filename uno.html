@@ -10,7 +10,7 @@
 
 <body>
   <header>
-    <div>🎮 MetaGame Lobby</div>
+    <div class="logo">🎮 MetaGame Lobby</div>
     <nav>
       <a href="#">Inicio</a>
       <a href="#">Juegos</a>
@@ -22,13 +22,57 @@
   <main>
     <aside class="estadisticas">
       <h2>Estadísticas</h2>
-      <p>Contenido de ejemplo...</p>
+      <div class="player-list">
+        <div class="player-card active">
+          <div class="avatar">👤</div>
+          <div class="info">
+            <h3>Tú</h3>
+            <p class="card-count">7 Cartas</p>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="avatar">🤖</div>
+          <div class="info">
+            <h3>Bot Izquierda</h3>
+            <p class="card-count">7 Cartas</p>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="avatar">🤖</div>
+          <div class="info">
+            <h3>Bot Frente</h3>
+            <p class="card-count">7 Cartas</p>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="avatar">🤖</div>
+          <div class="info">
+            <h3>Bot Derecha</h3>
+            <p class="card-count">7 Cartas</p>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <section class="contenido">
-      <div class="juego">
-        <h1>Zona de Juego</h1>
-        <button class="btn-jugar">Jugar</button>
+      <div id="start-screen">
+        <div class="uno-logo">
+          <span class="u">U</span><span class="n">N</span><span class="o">O</span>
+        </div>
+        <button id="btn-start">Jugar al UNO</button>
+      </div>
+
+      <button id="btn-uno" class="uno-button hidden">¡UNO!</button>
+
+      <div id="game-container"></div>
+
+      <!-- Game Over Modal -->
+      <div id="game-over-modal" class="hidden">
+        <div class="modal-content">
+          <h2>🏆 ¡Partida Terminada! 🏆</h2>
+          <p id="winner-message">El ganador es...</p>
+          <button id="btn-restart">Volver a Jugar</button>
+        </div>
       </div>
     </section>
   </main>
