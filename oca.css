@@ -52,103 +52,45 @@ main {
   min-height: calc(100vh - 230px);
 }
 
-/* --- Estadísticas compactas --- */
+/* Lateral izquierdo */
 .estadisticas {
-  width: 180px; /* Más pequeño */
+  width: 180px;
   background-color: #abebf0;
   padding: 15px;
-}
-
-.estadisticas h2 {
-  margin-bottom: 10px;
-  font-size: 18px;
 }
 
 .estadisticas table {
   width: 100%;
-  border: 1px solid #82f0ff;
-  border-collapse: collapse;
-  font-size: 12px; /* Texto más pequeño */
+  font-size: 12px;
 }
 
-.estadisticas th, .estadisticas td {
-  padding: 4px;
-  text-align: center;
-}
-.cubos{
-  background-color: #82f0ff;
-}
 .medida-cubo {
   width: 50px;
   height: 50px;
-  ;
 }
 
+/* CONTENIDO PRINCIPAL */
 .contenido {
   flex: 1;
   background-color: #ffffff;
+
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
-  justify-content: center;
   padding: 30px;
+
+  gap: 40px;
 }
 
-.tabla-container {
-  background-color: rgb(255, 255, 255);
-  padding: 15px;
-  position: absolute;
-  top: 90px;
-  left: 230px;
-}
 
-table {
-  border-collapse: collapse;
-  width: auto;
-}
+
+
 
 table, th, td {
-  border: 2px solid #000000;
-  border-collapse: collapse;
+  border: 2px solid #000;
 }
 
-
-#amarillo{
-  background-color: #f5a64c;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#rojo{
-  background-color: #abebf0;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#azul{
-  background-color: #abebf0;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#verde{
-  background-color: #abebf0;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-.jugadores{
+.jugadores {
   background-color: #010501;
   color: white;
   padding: 8px 12px;
@@ -156,57 +98,11 @@ table, th, td {
   font-weight: bold;
   font-size: 14px;
 }
-table td {
-  padding: 5px;
-}
-
-table tr:hover {
-  background-color: #f3f3f3;
-}
-
-.juego {
-  text-align: center;
-  margin-top: 300px;
-}
-
-.juego h1 {
-  margin-bottom: 20px;
-}
-
-.btn-jugar {
-  padding: 12px 30px;
-  background-color: #09ff00;
-  border: none;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-jugar:hover {
-  background-color: #07cc00;
-}
 
 .medida {
   width: 150px;
   height: 150px;
-  position: relative;
   padding: 0;
-}
-
-#model-yellow,
-#model-red,
-#model-blue {
-  width: 100%;
-  height: 100%;
-}
-
-#model-yellow canvas,
-#model-red canvas,
-#model-blue canvas {
-  background: transparent !important;
 }
 
 footer {

@@ -22,50 +22,58 @@
       <h2>Estadísticas</h2>
       <p>Contenido de ejemplo...</p>
       <br>
+
       <table id="cubos">
         <thead>
           <tr id="amarillo">
-            <th><div id='model-cuboA' class="medida-cubo"></div></th> 
+            <th><div id="model-cuboA" class="medida-cubo"></div></th>
             <th>ddddddd</th>
           </tr>
-          <tr  id="rojo">
-            <th><div id='model-cuboR' class="medida-cubo"></div></th>    
-          </tr >
-          <tr id ="azul">
-            <th><div id='model-cuboAz' class="medida-cubo"></div></th>   
+          <tr id="rojo">
+            <th><div id="model-cuboR" class="medida-cubo"></div></th>
+            <th>ddddddd</th>
           </tr>
-          <tr id ="verde">
-            <th><div id='model-cuboV' class="medida-cubo"></div></th>
+          <tr id="azul">
+            <th><div id="model-cuboAz" class="medida-cubo"></div></th>
+            <th>ddddddd</th>
+          </tr>
+          <tr id="verde">
+            <th><div id="model-cuboV" class="medida-cubo"></div></th>
+            <th>ddddddd</th>
           </tr>
         </thead>
       </table>
     </aside>
+
     <section class="contenido">
+
+      <!-- TABLA IZQUIERDA -->
       <div class="tabla-container">
         <table>
           <thead>
             <tr>
-              <th class ="jugadores">Jugador Amarillo</th>
-              <th class ="jugadores">Jugador Rojo</th>
-              <th class ="jugadores">Jugador Azul</th>
-              <th class ="jugadores">Jugador Verde</th>  
+              <th class="jugadores">Jugador Amarillo</th>
+              <th class="jugadores">Jugador Rojo</th>
+              <th class="jugadores">Jugador Azul</th>
+              <th class="jugadores">Jugador Verde</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="medida"><div id='model-yellow'></div></td>
-              <td class="medida"><div id='model-red'></div></td>
-              <td class="medida"><div id='model-blue'></div></td>
-              <td class="medida"><div id='model-green'></div></td>
+              <td class="medida"><div id="model-yellow"></div></td>
+              <td class="medida"><div id="model-red"></div></td>
+              <td class="medida"><div id="model-blue"></div></td>
+              <td class="medida"><div id="model-green"></div></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="juego">
-        <h1>Zona de Juego</h1>
-        <button class="btn-jugar">Jugar</button>
-      </div>
+      <!-- TABLERO CENTRADO -->
+      <div><img src="tableroOca.png" width="600" height="600"></div>
+
+      
+
     </section>
   </main>
 
@@ -83,6 +91,7 @@
       }
     }
   </script>
+
   <script type="module" src="oca.js"></script>
 </body>
 </html>
