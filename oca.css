@@ -1,3 +1,4 @@
+/* Reset rápido */
 * {
   margin: 0;
   padding: 0;
@@ -5,223 +6,434 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  overflow: hidden;
+  /* Prevent body scroll if main handles it */
 }
 
+/* Header */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 80px;
-  padding: 20px 40px;
-  background: linear-gradient(135deg, #000000, #82f0ff);
+  /* Reduced height */
+  padding: 0 40px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   color: white;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-header div:first-child {
-  font-size: 24px;
+header .logo {
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-nav {
+header nav {
   display: flex;
-  gap: 25px;
+  gap: 20px;
 }
 
-nav a {
-  color: white;
+header nav a {
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 0.95rem;
   transition: color 0.3s;
 }
 
-nav a:hover {
-  color: #000000;
+header nav a:hover {
+  color: #00ffff;
 }
 
+/* Layout principal */
 main {
   display: flex;
+  /* Height = 100vh - Header(80px) - Footer(60px) */
+  height: calc(100vh - 140px);
   margin-top: 80px;
-  min-height: calc(100vh - 230px);
+  width: 100%;
 }
 
-/* --- Estadísticas compactas --- */
+/* Barra lateral */
 .estadisticas {
-  width: 180px; /* Más pequeño */
-  background-color: #abebf0;
-  padding: 15px;
+  width: 18%;
+  min-width: 180px;
+  max-width: 240px;
+  background-color: #f0f8ff;
+  /* Lighter, cleaner blue */
+  padding: 20px;
+  border-right: 1px solid #d1e8ff;
+  overflow-y: auto;
 }
 
 .estadisticas h2 {
-  margin-bottom: 10px;
-  font-size: 18px;
-}
-
-.estadisticas table {
-  width: 100%;
-  border: 1px solid #82f0ff;
-  border-collapse: collapse;
-  font-size: 12px; /* Texto más pequeño */
-}
-
-.estadisticas th, .estadisticas td {
-  padding: 4px;
-  text-align: center;
-}
-.cubos{
-  background-color: #82f0ff;
-}
-.medida-cubo {
-  width: 50px;
-  height: 50px;
-  ;
-}
-
-.contenido {
-  flex: 1;
-  background-color: #ffffff;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 30px;
-}
-
-.tabla-container {
-  background-color: rgb(255, 255, 255);
-  padding: 15px;
-  position: absolute;
-  top: 90px;
-  left: 230px;
-}
-
-table {
-  border-collapse: collapse;
-  width: auto;
-}
-
-table, th, td {
-  border: 2px solid #000000;
-  border-collapse: collapse;
-}
-
-
-#amarillo{
-  background-color: #f5a64c;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#rojo{
-  background-color: #abebf0;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#azul{
-  background-color: #abebf0;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-#verde{
-  background-color: #abebf0;
-    color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-
-}
-.jugadores{
-  background-color: #010501;
-  color: white;
-  padding: 8px 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-}
-table td {
-  padding: 5px;
-}
-
-table tr:hover {
-  background-color: #f3f3f3;
-}
-
-.juego {
-  text-align: center;
-  margin-top: 300px;
-}
-
-.juego h1 {
   margin-bottom: 20px;
+  color: #1e3c72;
+  font-size: 1.4rem;
+  text-align: center;
 }
 
-.btn-jugar {
-  padding: 12px 30px;
-  background-color: #09ff00;
-  border: none;
+/* Player List Styles */
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.player-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid transparent;
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-card.active {
+  border: 2px solid #007bff;
+  background-color: #e6f2ff;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background-color: #eee;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.info {
+  flex-grow: 1;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.info p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #28a745;
   color: white;
-  font-size: 18px;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
   font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.btn-jugar:hover {
-  background-color: #07cc00;
-}
-
-.medida {
-  width: 150px;
-  height: 150px;
+/* Contenido principal (Juego) */
+.contenido {
+  width: 75%;
+  background-color: #e6ffe6;
   position: relative;
-  padding: 0;
+  overflow: hidden;
 }
 
-#model-yellow,
-#model-red,
-#model-blue {
+/* Start Screen */
+#start-screen {
+  position: fixed;
+  top: 80px;
+  /* Below header */
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 140px);
+  /* Subtract header (80px) and footer (60px) */
+  background: linear-gradient(135deg, #ff512f, #dd2476);
+  /* Vibrant background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  /* Cover sidebar and content */
+}
+
+.uno-logo {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -10px;
+  transform: rotate(-10deg);
+  margin-bottom: 50px;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.uno-logo .u {
+  color: #ff5555;
+  text-shadow: 4px 4px 0 #000;
+  -webkit-text-stroke: 2px white;
+}
+
+.uno-logo .n {
+  color: #ffaa00;
+  text-shadow: 4px 4px 0 #000;
+  -webkit-text-stroke: 2px white;
+}
+
+.uno-logo .o {
+  color: #55aa55;
+  text-shadow: 4px 4px 0 #000;
+  -webkit-text-stroke: 2px white;
+}
+
+#btn-start {
+  padding: 20px 60px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  background: #333;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  animation: pulse 2s infinite;
+}
+
+#btn-start:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  background: #444;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#game-container {
   width: 100%;
   height: 100%;
 }
 
-#model-yellow canvas,
-#model-red canvas,
-#model-blue canvas {
-  background: transparent !important;
+/* UNO Button */
+.uno-button {
+  position: absolute;
+  bottom: 150px;
+  right: 50px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff5555, #cc0000);
+  color: white;
+  font-weight: 900;
+  font-size: 1.5rem;
+  border: 4px solid white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  z-index: 50;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
+.uno-button:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.uno-button:active {
+  transform: scale(0.95);
+}
+
+/* Game Over Modal */
+#game-over-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content h2 {
+  font-size: 2rem;
+  color: #1e3c72;
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+#btn-restart {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#btn-restart:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Footer */
 footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 150px;
-  padding: 20px 40px;
-  color: white;
-  z-index: 2;
+  height: 60px;
+  /* Reduced height */
+  padding: 0 40px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  /* Horizontal layout */
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #000000, #82f0ff);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  font-size: 0.85rem;
 }
+
+footer p {
+  margin: 0;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+}
+
+.social-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin-left: 15px;
+  transition: color 0.3s;
+  font-size: 0.85rem;
+}
+
+social-links a:hover {
+  color: white;
+}
+
+table {
+  border: 2px solid #111;
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1.5px solid #111;
+}
+
+table{
+  border-color: #000;
+}
+
+/* Player Cubes */
+#model-cuboA, #model-yellow {
+  background-color: #ffe600;
+}
+#model-cuboR, #model-red {
+  background-color: #ff3c28;
+}
+#model-cuboAz, #model-blue {
+  background-color: #0094ff;
+}
+#model-cuboV, #model-green {
+  background-color: #00c853;
+}
+
+.tabla-container {
+  margin-top: 32px;
+  margin-left: 70px;
+}
+
+.tablero-derecha {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.tablero-derecha img {
+  width: 750px;
+  height: 750px;
+  margin-right: 32px;
+  margin-top: -140px;
+}
+
