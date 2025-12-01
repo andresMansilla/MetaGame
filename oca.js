@@ -10,8 +10,8 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
         return;
     }
 
-    const width = container.clientWidth || 400;
-    const height = container.clientHeight || 400;
+    const width = container.clientWidth || 100;
+    const height = container.clientHeight || 100;
 
     const scene = new THREE.Scene();
     scene.background = null; // Fondo transparente
@@ -56,7 +56,6 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
             const maxDim = Math.max(size.x, size.y, size.z);
             const scale = escala / maxDim; // Escala más grande para llenar el espacio
             
-            // Escalem.
             model.scale.setScalar(scale);
 
             // Ajuste de posición si se proporciona.
@@ -66,10 +65,17 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
                 model.position.set(model.position.x + ajusteDesplazamiento.x, model.position.y + ajusteDesplazamiento.y, model.position.z + ajusteDesplazamiento.z);
             }
 
-            scene.add(model);
+            // Crear un grupo para rotar el modelo centrado
+            const group = new THREE.Group();
+            group.add(model);
+            scene.add(group);
 
-            // Renderizar una vez (sin animación)
-            renderer.render(scene, camera);
+            // Animación de rotación para el grupo
+            (function animate() {
+                group.rotation.y += 0.04;
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            })();
         },
         (progress) => {
             console.log('Progreso de carga:', (progress.loaded / progress.total * 100).toFixed(2) + '%');
@@ -106,9 +112,10 @@ if (document.readyState === 'loading') {
     loadModel('model-yellow', './modelos/patoamarillo.glb');
     loadModel('model-red', './modelos/pokeballrojo.glb');
     loadModel('model-blue', './modelos/diamante.glb', 1.8);
-    loadModel('model-green', './modelos/nave1.glb');
-    loadModel('model-cuboA', './modelos/cuboamarillo.glb', 2.5, {x:-0.8, y:-0.2, z:0});
-    loadModel('model-cuboR', './modelos/cuborojo1.glb');
-    loadModel('model-cuboAz', './modelos/cuboazul.glb');
-    loadModel('model-cuboV', './modelos/cuboverde.glb', 2, {x:-3, y:-0.2, z:0});
+    loadModel('model-green', './modelos/nave1.glb', 3,{x: 0, y:-0.1, z:0} );
+    loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8, );
+    loadModel('model-cuboR', './modelos/cuborojo1.glb',1.8,);
+    loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9, );
+    loadModel('model-cuboV', './modelos/cuboverde1.glb', 2);
+    loadModel('model-dado', './modelos/dado.glb');
 }
