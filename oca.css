@@ -63,6 +63,7 @@ main {
   width: 100%;
 }
 
+<<<<<<< HEAD
 /* Barra lateral */
 .estadisticas {
   width: 18%;
@@ -349,6 +350,61 @@ main {
 }
 
 /* Footer */
+=======
+/* Lateral izquierdo */
+.estadisticas {
+  width: 180px;
+  background-color: #abebf0;
+  padding: 15px;
+}
+
+.estadisticas table {
+  width: 100%;
+  font-size: 12px;
+}
+
+.medida-cubo {
+  width: 50px;
+  height: 50px;
+}
+
+/* CONTENIDO PRINCIPAL */
+.contenido {
+  flex: 1;
+  background-color: #ffffff;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 30px;
+
+  gap: 40px;
+}
+
+
+
+
+
+table, th, td {
+  border: 2px solid #000;
+}
+
+.jugadores {
+  background-color: #010501;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.medida {
+  width: 150px;
+  height: 150px;
+  padding: 0;
+}
+
+>>>>>>> origin/main
 footer {
   position: fixed;
   bottom: 0;
