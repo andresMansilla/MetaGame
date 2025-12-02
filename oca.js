@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null) {
+function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null, ajusteRotacion = null, rotationSpeed=0.04) {
     console.log('Cargando modelo:', containerId, modelPath);
     const container = document.getElementById(containerId);
 
@@ -64,6 +64,11 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
             } else {
                 model.position.set(model.position.x + ajusteDesplazamiento.x, model.position.y + ajusteDesplazamiento.y, model.position.z + ajusteDesplazamiento.z);
             }
+            if (ajusteRotacion == null){
+                model.rotation.set(model.rotation.x, model.rotation.y, model.rotation.z);
+            } else {
+                model.rotation.set(model.rotation.x + ajusteRotacion.x, model.rotation.y + ajusteRotacion.y, model.rotation.z + ajusteRotacion.z);
+            }
 
             // Crear un grupo para rotar el modelo centrado
             const group = new THREE.Group();
@@ -72,7 +77,7 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
 
             // Animación de rotación para el grupo
             (function animate() {
-                group.rotation.y += 0.04;
+                group.rotation.y += rotationSpeed;
                 renderer.render(scene, camera);
                 requestAnimationFrame(animate);
             })();
@@ -117,5 +122,6 @@ if (document.readyState === 'loading') {
     loadModel('model-cuboR', './modelos/cuborojo1.glb',1.8,);
     loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9, );
     loadModel('model-cuboV', './modelos/cuboverde1.glb', 2);
-    loadModel('model-dado', './modelos/dado.glb');
+    loadModel('model-dado', './modelos/dado2.glb', 1.5);
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 2.5,{x: 0, y:0.3, z:0},{x: 0.6, y:3.14, z:0},0);
 }
