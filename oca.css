@@ -226,8 +226,8 @@ main {
 #model-dado {
   width: 80px;
   height: 80px;
-  margin-top: 20px;
-  margin-left: 0%;
+  margin-top: 130px;
+  margin-left: 10%;
   position: relative;   /* necesario */
   z-index: 10;          /* más alto que el tablero */
 }
@@ -237,6 +237,7 @@ main {
   width: 1200px;
   margin-left: 20%;
   margin-bottom: 10%;
+  margin-top: -130px;
   position: relative;   /* opcional, pero recomendado */
   z-index: 1;           /* menor */
 }
