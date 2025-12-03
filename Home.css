@@ -1,17 +1,119 @@
 /* =======================================
-   VARIABLES DE COLOR (Tema Neon Grid / Ciberpunk)
+   VARIABLES DE COLOR (Modern Premium Dark)
    ======================================= */
 :root {
-    --color-dark-void: #0A0A1F; /* Fondo muy oscuro, casi negro */
-    --color-primary-neon: #ff0055; /* Rosa/rojo eléctrico */
-    --color-secondary-neon: #00ffff; /* Cian brillante */
-    --color-ui-dark: #1A325D; 
-    --color-ui-light: #f1faee; 
-    --grid-size: 50px; /* Rejilla más fina y densa */
+    --bg-main: #0f172a;
+    /* Slate 900 */
+    --bg-surface: #1e293b;
+    /* Slate 800 */
+    --bg-surface-hover: #334155;
+    /* Slate 700 */
+
+    --primary: #3b82f6;
+    /* Blue 500 */
+    --primary-hover: #2563eb;
+    /* Blue 600 */
+    --secondary: #8b5cf6;
+    /* Violet 500 */
+
+    --text-main: #f8fafc;
+    /* Slate 50 */
+    --text-muted: #94a3b8;
+    /* Slate 400 */
+
+    --border-color: #334155;
+    /* Slate 700 */
+
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+
+    --radius-lg: 16px;
+    --radius-md: 8px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
+
 /* =======================================
-   MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
+   ANIMACIONES (Premium & Dynamic)
    ======================================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
 * {
     box-sizing: border-box;
@@ -20,44 +122,45 @@
 }
 
 body {
-    /* CRÍTICO: Permitir scroll vertical y darle altura */
-    overflow-y: auto; 
-    height: 200vh; 
-    
-    font-family: Arial, sans-serif;
-    padding-top: 80px; 
-    padding-bottom: 60px; 
-    
-    /* === NUEVO FONDO: Neon Grid / Ciberpunk === */
-    background-color: var(--color-dark-void);
-    background-image: 
-        /* Rejilla de fondo (Grid) */
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        /* Neblina o degradado sutil con el color primario neon */
-        radial-gradient(ellipse at center, rgba(255, 0, 85, 0.15) 0%, transparent 80%);
-    
-    background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size), cover;
-    background-position: 0 0;
-    
-    /* Animación más rápida para el patrón */
-    animation: moveBackground 25s linear infinite;
-    
-    /* Cursores personalizados */
-    cursor: url('puntero_personalizado.png'), auto; 
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    overflow-y: auto;
+    height: 100vh;
+    /* Animated Gradient Background */
+    background: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%),
+        var(--bg-main);
+    background-size: 200% 200%;
+    animation: fadeIn 1s ease-out, gradientMove 15s ease infinite;
 }
 
-a, button, #splash-screen button {
-    cursor: url('puntero_interactivo.png'), pointer; 
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    transition: color 0.3s ease;
 }
 
-@keyframes moveBackground {
-    from { background-position: 0 0; }
-    to { background-position: var(--grid-size) var(--grid-size); }
+a {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary);
+    transform: scale(1.05);
 }
 
 /* ===============================
-   Splash Screen (Fondo inicial)
+   Splash Screen
    =============================== */
 #splash-screen {
     position: fixed;
@@ -65,163 +168,199 @@ a, button, #splash-screen button {
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Fondo muy oscuro y dramático para el inicio */
-    background: linear-gradient(135deg, #050510 0%, #100515 100%); 
-    color: white;
+    background-color: var(--bg-main);
     z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s ease-in-out, visibility 1s;
-    overflow: hidden; 
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
 }
 
 #splash-screen.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 #splash-screen h2 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    /* Efecto de brillo neon */
-    text-shadow: 0 0 10px var(--color-primary-neon), 0 0 20px var(--color-primary-neon);
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, var(--text-main), var(--text-muted));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: slideUp 1s ease-out;
 }
 
 #splash-screen button {
-    background-color: var(--color-primary-neon); /* Color de acción */
-    color: var(--color-dark-void); /* Texto oscuro en el botón brillante */
+    background: var(--primary);
+    color: white;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-primary-neon);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    animation: slideUp 1s ease-out 0.2s backwards, pulseGlow 2s infinite 1s;
 }
 
 #splash-screen button:hover {
-    background-color: #ff3377; 
-    transform: translateY(-2px);
+    background: var(--primary-hover);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
 }
 
 /* ===============================
-   Header y Footer (UI)
+   Header & Footer
    =============================== */
-header, footer {
+header,
+footer {
     position: fixed;
     left: 0;
     width: 100%;
-    z-index: 10; 
-    background: linear-gradient(135deg, #101030 0%, var(--color-ui-dark) 100%); /* Ligeramente más oscuro */
-    color: var(--color-secondary-neon); /* Texto con color de acento neon */
+    z-index: 50;
+    padding: 0 40px;
+    backdrop-filter: blur(12px);
+    background-color: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
-    padding: 15px 50px; 
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: slideDown 0.8s ease-out;
 }
 
-/* --- SECCIÓN HEADER --- */
 header {
     top: 0;
     height: 80px;
     justify-content: space-between;
-    border-radius: 0 0 15px 15px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 255, 0.3); /* Sombra con brillo cian */
 }
 
-header:hover {
-    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 255, 0.5);
-    transform: translateY(-2px);
-}
-
-/* --- SECCIÓN FOOTER --- */
 footer {
     bottom: 0;
     height: 60px;
     justify-content: center;
-    border-radius: 15px 15px 0 0; 
-    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 255, 0.3);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: none;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    animation: slideUp 0.8s ease-out;
 }
 
-footer:hover {
-    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 255, 0.5);
-    transform: translateY(2px);
+/* Header Specifics */
+header h1 {
+    font-size: 1.5rem;
 }
 
-/* ===============================
-   Fondo 3D (Canvas)
-   =============================== */
-#three-canvas {
-    position: fixed;
-    top: 0;
+header h3 {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+header nav a {
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0; 
+    width: 0%;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s ease;
+}
+
+header nav a:hover::after {
+    width: 100%;
+}
+
+header nav a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    transform: translateY(-2px);
+}
+
+/* Search Input in Header */
+#header-search-input {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+#header-search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 /* ===============================
-   Menú Lateral Derecho (Right Menu)
+   Side Menu
    =============================== */
 #right-menu {
-    position: fixed; 
-    top: 50%; 
-    right: 30px; 
-    transform: translateY(-50%); 
-    z-index: 20; 
-    background-color: rgba(255, 255, 255, 0.9); /* Puedes mantener un fondo claro semi-transparente o usar uno oscuro */
-    border-radius: 12px;
-    padding: 15px 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.5s ease-in-out, visibility 0.5s; 
+    position: fixed;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    z-index: 40;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 1s ease-out 0.5s backwards;
 }
 
 .side-nav {
     display: flex;
-    flex-direction: column; 
-    gap: 10px; 
+    flex-direction: column;
+    gap: 8px;
 }
 
 .side-nav a {
-    display: block; 
-    padding: 8px;
-    text-align: center;
-    text-decoration: none;
-    color: #172a5a; 
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-align: left;
+    transition: all 0.2s ease;
 }
 
 .side-nav a:hover {
-    background-color: var(--color-secondary-neon); /* Hover con brillo cian */
-    color: var(--color-dark-void);
+    background-color: var(--bg-surface-hover);
+    color: var(--text-main);
+    transform: translateX(5px);
 }
 
 .side-nav .search-icon {
-    font-size: 1.5em; 
-    color: var(--color-primary-neon); /* Icono principal neon */
-    border: 2px solid var(--color-primary-neon);
-    border-radius: 50%; 
-    width: 30px;
-    height: 30px;
-    line-height: 30px; 
-    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-surface-hover);
+    margin: 0 auto 8px;
+    color: var(--primary);
+    transition: all 0.3s ease;
 }
 
 .side-nav .search-icon:hover {
-    background-color: var(--color-primary-neon);
+    background-color: var(--primary);
     color: white;
+    transform: rotate(90deg);
 }
 
 /* ===============================
-   Ventana Emergente (Modal)
+   Modal
    =============================== */
 .modal-overlay {
     position: fixed;
@@ -229,14 +368,15 @@ footer:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85); /* Fondo más opaco para enfoque */
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 200; 
+    z-index: 200;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+    transition: all 0.3s;
 }
 
 .modal-overlay.visible {
@@ -245,39 +385,59 @@ footer:hover {
 }
 
 .modal-content {
-    background: var(--color-dark-void); /* Modal oscuro */
-    color: white;
-    padding: 30px 40px;
-    border-radius: 15px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 32px;
+    border-radius: var(--radius-lg);
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 20px var(--color-secondary-neon); /* Brillo cian en el borde */
+    box-shadow: var(--shadow-lg);
     max-width: 400px;
-    transform: scale(0.9);
-    transition: transform 0.3s ease-in-out;
+    width: 90%;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-overlay.visible .modal-content {
     transform: scale(1);
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-content h3 {
-    margin-bottom: 20px;
     font-size: 1.5rem;
-    color: var(--color-primary-neon); /* Título en color de acento */
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
 .modal-content button {
-    background-color: var(--color-secondary-neon);
-    color: var(--color-dark-void);
+    background-color: var(--primary);
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
 .modal-content button:hover {
-    background-color: #55ffff;
-    box-shadow: 0 0 10px var(--color-secondary-neon);
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+/* ===============================
+   3D Canvas
+   =============================== */
+#three-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    animation: fadeIn 2s ease-out;
 }
