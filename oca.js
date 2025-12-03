@@ -158,5 +158,5 @@ setTimeout(() => {
     loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
     loadModel('model-cuboV', './modelos/cuboverde1.glb', 2,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
     loadModel('model-dado', './modelos/dado2.glb', 1.6,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.8, z:0},{x: 0.6, y:3.14, z:0},0);
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.5, z:0},{x: 0.6, y:3.14, z:0},0);
 }

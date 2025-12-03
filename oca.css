@@ -235,8 +235,8 @@ main {
 }
 
 .medida-cubo {
-  width: 24px;
-  height: 24px;
+  width: 80px;
+  height: 80px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
@@ -330,35 +330,35 @@ tr:last-child td {
 
 /* Colors for cubes */
 #model-yellow {
-  background-color: #eab308;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-red {
-  background-color: #ef4444;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-blue {
-  background-color: #3b82f6;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-green {
-  background-color: #22c55e;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboA {
-  background-color: #eab308;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboR {
-  background-color: #ef4444;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboAz {
-  background-color: #3b82f6;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboV {
-  background-color: #22c55e;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 /* Footer */
@@ -396,4 +396,22 @@ footer {
 .social-links a:hover {
   color: var(--text-main);
   transform: translateY(-2px);
+}
+
+.tablas-flex {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+  margin-left: 20% /* Alinea ambas tablas a la misma altura */
+}
+
+.tabla-container table,
+.tabla-dado table {
+  height: 100%;
+}
+
+.tabla-container td,
+.tabla-dado td {
+  vertical-align: middle;
+  height: 140px; /* Ajusta este valor según el alto de tus modelos */
 }

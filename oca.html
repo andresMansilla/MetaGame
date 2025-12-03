@@ -56,38 +56,53 @@
 
     <section class="contenido">
 
-      <!-- TABLA IZQUIERDA -->
-      <div class="tabla-container">
-        <table>
-          <thead>
-            <tr>
-              <th class="jugadores">Jugador Amarillo</th>
-              <th class="jugadores">Jugador Rojo</th>
-              <th class="jugadores">Jugador Azul</th>
-              <th class="jugadores">Jugador Verde</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="medida">
-                <div id="model-yellow" class="medida-cubo" style="margin:0 auto;"></div>
-              </td>
-              <td class="medida">
-                <div id="model-red" class="medida-cubo" style="margin:0 auto;"></div>
-              </td>
-              <td class="medida">
-                <div id="model-blue" class="medida-cubo" style="margin:0 auto;"></div>
-              </td>
-              <td class="medida">
-                <div id="model-green" class="medida-cubo" style="margin:0 auto;"></div>
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-
+      <!-- TABLAS JUGADORES Y DADO EN FLEX -->
+      <div class="tablas-flex" style="display: flex; gap: 32px; align-items: flex-start;">
+        <div class="tabla-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="jugadores">Jugador Amarillo</th>
+                <th class="jugadores">Jugador Rojo</th>
+                <th class="jugadores">Jugador Azul</th>
+                <th class="jugadores">Jugador Verde</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="medida">
+                  <div id="model-yellow" class="medida-cubo" style="margin:0 auto;"></div>
+                </td>
+                <td class="medida">
+                  <div id="model-red" class="medida-cubo" style="margin:0 auto;"></div>
+                </td>
+                <td class="medida">
+                  <div id="model-blue" class="medida-cubo" style="margin:0 auto;"></div>
+                </td>
+                <td class="medida">
+                  <div id="model-green" class="medida-cubo" style="margin:0 auto;"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tabla-dado">
+          <table>
+            <thead>
+              <tr>
+                <th class="jugadores">Dado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div id="model-dado" class="medida-cubo" style="margin:0 auto;"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div id="model-dado" class="medida"></div>
 
       <!-- TABLERO CENTRADO -->
       <div class="tablero-derecha" id="model-tablero"></div>
@@ -113,6 +128,14 @@
   </script>
 
   <script type="module" src="oca.js"></script>
+  
+  <!-- Modal para el pato -->
+  <div id="modal-pato-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:1000;">
+    <div id="modal-pato" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:16px; box-shadow:0 0 40px #0008; padding:24px; z-index:1001;">
+      <div id="modal-pato-model" style="width:400px; height:400px;"></div>
+      <button id="close-modal-pato" style="margin-top:16px; display:block; margin-left:auto; margin-right:auto; padding:8px 24px; font-size:1.1rem; border:none; border-radius:8px; background:#1976d2; color:#fff; cursor:pointer;">Cerrar</button>
+    </div>
+  </div>
 </body>
 
 </html>
