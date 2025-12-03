@@ -42,16 +42,21 @@
             </nav>
         </div>
 
-        <button style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-        </button>
+        <div id="header-search-container" style="display: flex; align-items: center; position: relative;">
+    <input type="search" id="header-search-input" placeholder="Buscar juego..." 
+        style="width: 0; opacity: 0; padding: 5px 10px; border-radius: 5px; border: none; transition: width 0.3s ease, opacity 0.3s ease; margin-right: 10px;"/>
+    
+    <button id="toggle-header-search" style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+    </button>
+</div>
     </header>
 
     <aside id="right-menu">
         <nav class="side-nav">
-            <a href="#" class="search-icon">🔎</a>
+           <a href="#" class="search-icon" id="toggle-side-menu-search">🔎</a>
             
             <a href="index.html">Inicio</a>
             <a href="ocaInicio.html">Juego de la Oca</a>

@@ -1,21 +1,235 @@
 /* =======================================
-    MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
-    ======================================= */
+   VARIABLES DE COLOR (Tema Neon Grid / Ciberpunk)
+   ======================================= */
+:root {
+    --color-dark-void: #0A0A1F; /* Fondo muy oscuro, casi negro */
+    --color-primary-neon: #ff0055; /* Rosa/rojo eléctrico */
+    --color-secondary-neon: #00ffff; /* Cian brillante */
+    --color-ui-dark: #1A325D; 
+    --color-ui-light: #f1faee; 
+    --grid-size: 50px; /* Rejilla más fina y densa */
+}
+/* =======================================
+   MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
+   ======================================= */
 
-/* 1. Habilitar Scroll y darle altura */
-body {
-    overflow-y: auto; /* Permite el scroll */
-    height: 200vh; /* Fuerza la altura para que la barra de scroll aparezca */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* 2. Estilos para la Ventana Emergente (Modal) */
+body {
+    /* CRÍTICO: Permitir scroll vertical y darle altura */
+    overflow-y: auto; 
+    height: 200vh; 
+    
+    font-family: Arial, sans-serif;
+    padding-top: 80px; 
+    padding-bottom: 60px; 
+    
+    /* === NUEVO FONDO: Neon Grid / Ciberpunk === */
+    background-color: var(--color-dark-void);
+    background-image: 
+        /* Rejilla de fondo (Grid) */
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        /* Neblina o degradado sutil con el color primario neon */
+        radial-gradient(ellipse at center, rgba(255, 0, 85, 0.15) 0%, transparent 80%);
+    
+    background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size), cover;
+    background-position: 0 0;
+    
+    /* Animación más rápida para el patrón */
+    animation: moveBackground 25s linear infinite;
+    
+    /* Cursores personalizados */
+    cursor: url('puntero_personalizado.png'), auto; 
+}
+
+a, button, #splash-screen button {
+    cursor: url('puntero_interactivo.png'), pointer; 
+}
+
+@keyframes moveBackground {
+    from { background-position: 0 0; }
+    to { background-position: var(--grid-size) var(--grid-size); }
+}
+
+/* ===============================
+   Splash Screen (Fondo inicial)
+   =============================== */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Fondo muy oscuro y dramático para el inicio */
+    background: linear-gradient(135deg, #050510 0%, #100515 100%); 
+    color: white;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out, visibility 1s;
+    overflow: hidden; 
+}
+
+#splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; 
+}
+
+#splash-screen h2 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    /* Efecto de brillo neon */
+    text-shadow: 0 0 10px var(--color-primary-neon), 0 0 20px var(--color-primary-neon);
+}
+
+#splash-screen button {
+    background-color: var(--color-primary-neon); /* Color de acción */
+    color: var(--color-dark-void); /* Texto oscuro en el botón brillante */
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-primary-neon);
+}
+
+#splash-screen button:hover {
+    background-color: #ff3377; 
+    transform: translateY(-2px);
+}
+
+/* ===============================
+   Header y Footer (UI)
+   =============================== */
+header, footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 10; 
+    background: linear-gradient(135deg, #101030 0%, var(--color-ui-dark) 100%); /* Ligeramente más oscuro */
+    color: var(--color-secondary-neon); /* Texto con color de acento neon */
+    display: flex;
+    align-items: center;
+    padding: 15px 50px; 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- SECCIÓN HEADER --- */
+header {
+    top: 0;
+    height: 80px;
+    justify-content: space-between;
+    border-radius: 0 0 15px 15px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 255, 0.3); /* Sombra con brillo cian */
+}
+
+header:hover {
+    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* --- SECCIÓN FOOTER --- */
+footer {
+    bottom: 0;
+    height: 60px;
+    justify-content: center;
+    border-radius: 15px 15px 0 0; 
+    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+footer:hover {
+    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 255, 0.5);
+    transform: translateY(2px);
+}
+
+/* ===============================
+   Fondo 3D (Canvas)
+   =============================== */
+#three-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; 
+}
+
+/* ===============================
+   Menú Lateral Derecho (Right Menu)
+   =============================== */
+#right-menu {
+    position: fixed; 
+    top: 50%; 
+    right: 30px; 
+    transform: translateY(-50%); 
+    z-index: 20; 
+    background-color: rgba(255, 255, 255, 0.9); /* Puedes mantener un fondo claro semi-transparente o usar uno oscuro */
+    border-radius: 12px;
+    padding: 15px 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s ease-in-out, visibility 0.5s; 
+}
+
+.side-nav {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+}
+
+.side-nav a {
+    display: block; 
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #172a5a; 
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.side-nav a:hover {
+    background-color: var(--color-secondary-neon); /* Hover con brillo cian */
+    color: var(--color-dark-void);
+}
+
+.side-nav .search-icon {
+    font-size: 1.5em; 
+    color: var(--color-primary-neon); /* Icono principal neon */
+    border: 2px solid var(--color-primary-neon);
+    border-radius: 50%; 
+    width: 30px;
+    height: 30px;
+    line-height: 30px; 
+    margin-bottom: 5px;
+}
+
+.side-nav .search-icon:hover {
+    background-color: var(--color-primary-neon);
+    color: white;
+}
+
+/* ===============================
+   Ventana Emergente (Modal)
+   =============================== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.85); /* Fondo más opaco para enfoque */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,32 +245,39 @@ body {
 }
 
 .modal-content {
-    background: #f1faee;
-    color: #1d3557;
+    background: var(--color-dark-void); /* Modal oscuro */
+    color: white;
     padding: 30px 40px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 20px var(--color-secondary-neon); /* Brillo cian en el borde */
     max-width: 400px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
 }
 
 .modal-content h3 {
     margin-bottom: 20px;
     font-size: 1.5rem;
-    color: #e63946;
+    color: var(--color-primary-neon); /* Título en color de acento */
 }
 
 .modal-content button {
-    background-color: #457b9d;
-    color: white;
+    background-color: var(--color-secondary-neon);
+    color: var(--color-dark-void);
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .modal-content button:hover {
-    background-color: #1d3557;
+    background-color: #55ffff;
+    box-shadow: 0 0 10px var(--color-secondary-neon);
 }

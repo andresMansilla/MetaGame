@@ -76,19 +76,23 @@ function initGame() {
 
     // Scene setup
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xe6ffe6); // Match CSS background
+    // scene.background = null; // Transparent to show CSS background
 
     camera = new THREE.PerspectiveCamera(75, gameContainer.clientWidth / gameContainer.clientHeight, 0.1, 1000);
     camera.position.set(0, 6, 12); // Camera further back and higher
     camera.lookAt(0, 0, 0);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(gameContainer.clientWidth, gameContainer.clientHeight);
     gameContainer.appendChild(renderer.domElement);
 
     // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
     directionalLight.position.set(5, 10, 7.5);
@@ -119,6 +123,11 @@ function initGame() {
 
     // 4. Right Hand (Opponent) - Index 3
     createHand(25, -15, 0, 2.5, 82, 7, 3);
+
+    // Create Robots behind opponents
+    createRobot(0, -5, -29.5, 30);           // Top
+    createRobot(-32, -5, -15, 0); // Left
+    createRobot(32, -5, -15, 34.5); // Right
 
     // Initial UI update (will show 7 cards because isGameReady is false)
     updateUI();
@@ -412,4 +421,16 @@ function onWindowResize() {
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
     }
+}
+
+function createRobot(x, y, z, rotationY) {
+    loader.load('modelos/robot.glb', (gltf) => {
+        const model = gltf.scene;
+        model.scale.set(20, 20, 20); // Much bigger
+        model.position.set(x, y, z); // Use passed Y
+        model.rotation.y = rotationY;
+        scene.add(model);
+    }, undefined, (error) => {
+        console.error('Error loading robot:', error);
+    });
 }
