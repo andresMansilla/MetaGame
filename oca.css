@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #ffffff;
   overflow: hidden;
   /* Prevent body scroll if main handles it */
 }
@@ -151,7 +151,7 @@ main {
 /* Contenido principal (Juego) */
 .contenido {
   width: 75%;
-  background-color: #e6ffe6;
+  background-color: #cff1cf;
   position: relative;
   overflow: hidden;
 }
