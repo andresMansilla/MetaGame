@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null) {
+function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null, ajusteRotacion = null, rotationSpeed=0.04) {
     console.log('Cargando modelo:', containerId, modelPath);
     const container = document.getElementById(containerId);
 
@@ -64,6 +64,11 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
             } else {
                 model.position.set(model.position.x + ajusteDesplazamiento.x, model.position.y + ajusteDesplazamiento.y, model.position.z + ajusteDesplazamiento.z);
             }
+            if (ajusteRotacion == null){
+                model.rotation.set(model.rotation.x, model.rotation.y, model.rotation.z);
+            } else {
+                model.rotation.set(model.rotation.x + ajusteRotacion.x, model.rotation.y + ajusteRotacion.y, model.rotation.z + ajusteRotacion.z);
+            }
 
             // Crear un grupo para rotar el modelo centrado
             const group = new THREE.Group();
@@ -72,7 +77,7 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
 
             // Animación de rotación para el grupo
             (function animate() {
-                group.rotation.y += 0.04;
+                group.rotation.y += rotationSpeed;
                 renderer.render(scene, camera);
                 requestAnimationFrame(animate);
             })();
@@ -96,26 +101,62 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
     });
 }
 
-// Ejecutar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        loadModel('model-yellow', './modelos/patoamarillo.glb');
-        loadModel('model-red', './modelos/pokeballrojo.glb');
-        loadModel('model-blue', './modelos/diamante.glb');
-        loadModel('model-green', './modelos/nave1.glb');
-        loadModel('model-cuboA', './modelos/cuboamarillo.glb');
-        loadModel('model-cuboR', './modelos/cuborojo.glb');
-        loadModel('model-cuboAz', './modelos/cuboazul.glb');
-        loadModel('model-cuboV', './modelos/cuboverde.glb');
+// --- DADO ANIMADO Y RESULTADOS EN ESTADÍSTICAS ---
+
+function lanzarDadoAnimado(callback) {
+    // Buscar el renderer y el grupo del dado
+    let renderer, scene, camera, group;
+    // Si no hay acceso directo, buscar en window (por compatibilidad)
+    if (!renderer || !scene || !camera || !group) {
+        // No se puede animar el dado si no se tiene acceso
+        callback && callback();
+        return;
+    } 
+}
+function mostrarResultadosDado() {
+    // Generar un número aleatorio para cada jugador (1-6)
+    const resultados = [
+        Math.floor(Math.random() * 6) + 1, 
+        Math.floor(Math.random() * 6) + 1, 
+        Math.floor(Math.random() * 6) + 1, 
+        Math.floor(Math.random() * 6) + 1 
+    ];
+    // Mostrar el número en los span de estadísticas
+    const spans = [
+        document.querySelector('#model-cuboA').nextElementSibling,
+        document.querySelector('#model-cuboR').nextElementSibling,
+        document.querySelector('#model-cuboAz').nextElementSibling,
+        document.querySelector('#model-cuboV').nextElementSibling
+    ];
+    spans.forEach((span, i) => {
+        if (span) {
+            span.textContent += ` (${resultados[i]})`;
+        }
     });
-} else {
+}
+// Evento click en el dado
+setTimeout(() => {
+    const dadoDiv = document.getElementById('model-dado');
+    if (dadoDiv) {
+        dadoDiv.style.cursor = 'pointer';
+        dadoDiv.addEventListener('click', () => {
+            lanzarDadoAnimado(() => {
+                mostrarResultadosDado();
+            });
+        });
+    }
+}, 1000);
+
+// Ejecutar cuando el DOM esté listo
+{
     loadModel('model-yellow', './modelos/patoamarillo.glb');
     loadModel('model-red', './modelos/pokeballrojo.glb');
-    loadModel('model-blue', './modelos/diamante.glb', 1.8);
+    loadModel('model-blue', './modelos/diamante.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
     loadModel('model-green', './modelos/nave1.glb', 3,{x: 0, y:-0.1, z:0} );
-    loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8, );
-    loadModel('model-cuboR', './modelos/cuborojo1.glb',1.8,);
-    loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9, );
-    loadModel('model-cuboV', './modelos/cuboverde1.glb', 2);
-    loadModel('model-dado', './modelos/dado.glb');
+    loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
+    loadModel('model-cuboR', './modelos/cuborojo1.glb',1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
+    loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
+    loadModel('model-cuboV', './modelos/cuboverde1.glb', 2,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
+    loadModel('model-dado', './modelos/dado2.glb', 1.6,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.8, z:0},{x: 0.6, y:3.14, z:0},0);
 }
