@@ -6,14 +6,18 @@ const canvas = document.querySelector('#three-canvas');
 const renderer = new THREE.WebGLRenderer({ 
     canvas, 
     antialias: true, 
-    alpha: true // HABILITAR TRANSPARENCIA
+    alpha: true // <--- ¡CRÍTICO! HABILITAR TRANSPARENCIA
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
+
+// Asegura que el fondo sea transparente, no negro sólido
 renderer.setClearColor(0x000000, 0); 
 
 // Escena y cámara
 const scene = new THREE.Scene();
+// scene.background = new THREE.Color(0xe6ffe6); // COMENTADO/ELIMINADO: Usaremos el fondo CSS
+
 const camera = new THREE.PerspectiveCamera(
     60,
     window.innerWidth / window.innerHeight,
@@ -40,14 +44,9 @@ let mesa;
 let mandoObject; // Referencia para el mando
 
 // Variables de Posición del Mando
-const INITIAL_MANDO_Y = -15.0; // Posición inicial oculta
-const FINAL_MANDO_Y = 7.0;    // Posición final: Visible sobre la mesa
+const INITIAL_MANDO_Y = -15.0; // MUCHO MÁS ABAJO: Posición inicial oculta
+const FINAL_MANDO_Y = 7.0;    // POSICIÓN FINAL: Visible sobre la mesa
 const MESA_Y_POSITION = -3.0; // Posición de la mesa
-
-// -------------------------------------------
-// OBTENER REFERENCIAS DE ELEMENTOS HTML
-// -------------------------------------------
-const futureGamesTable = document.getElementById('future-games-table');
 
 // -------------------------------------------
 // CARGAR MESA (Estática)
@@ -65,7 +64,7 @@ loader.load("modelos/billar5glb.glb", (gltf) => {
 // CARGAR OBJETOS SOBRE LA MESA (Dado y 1verde)
 // -------------------------------------------
 function loadObjects() {
-    const forcedYPosition = FINAL_MANDO_Y; 
+    const forcedYPosition = FINAL_MANDO_Y; // Usamos la misma Y final que el mando
     
     // DADO (Juego UNO)
     loader.load("modelos/dado2.glb", (gltf) => {
@@ -95,55 +94,45 @@ function loadMando() {
     loader.load("modelos/Mando.glb", (gltf) => {
         mandoObject = gltf.scene;
         mandoObject.scale.set(1.8, 1.8, 1.8);      
+        // Inicializamos en la posición oculta
         mandoObject.position.set(0.0, INITIAL_MANDO_Y, 0); 
         mandoObject.rotation.x = Math.PI / 2; 
         
-        mandoObject.targetY = FINAL_MANDO_Y; 
-        mandoObject.initialY = INITIAL_MANDO_Y; 
+        mandoObject.targetY = FINAL_MANDO_Y; // Posición destino
+        mandoObject.initialY = INITIAL_MANDO_Y; // Posición inicial
         scene.add(mandoObject); 
         
+        // Añadir a objetos clickeables para abrir el modal
         clickableObjects.push({ obj: mandoObject, url: "#modal" });
     });
 }
 
 
 // -------------------------------------------
-// FUNCIÓN DE SCROLL (Zoom, Aparición Mando, Aparición Tabla)
+// FUNCIÓN DE SCROLL (Zoom y Aparición del Mando)
 // -------------------------------------------
 const SCROLL_THRESHOLD = 50; 
 const MANDO_SCROLL_OFFSET = 25; 
-const TABLE_SCROLL_TRIGGER = 100; // El scroll necesario para mostrar la tabla
 
 window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
     
-    // 1. Zoom de la cámara
+    // Interpolación de la cámara (zoom-in suave)
     const tCamera = Math.min(1, scrollY / SCROLL_THRESHOLD);
     camera.position.y = THREE.MathUtils.lerp(INITIAL_CAMERA_Y, SCROLL_CAMERA_Y, tCamera);
     
-    // 2. Mover el mando
+    // Mover el mando si está cargado
     if (mandoObject) {
+        // Calculamos t para el mando, asegurando que solo suba después del offset
         const mandoScrollValue = Math.max(0, scrollY - MANDO_SCROLL_OFFSET);
         const tMando = Math.min(1, mandoScrollValue / SCROLL_THRESHOLD);
         
+        // Mueve el mando desde INITIAL_MANDO_Y (oculto) a FINAL_MANDO_Y (visible) 
         mandoObject.position.y = THREE.MathUtils.lerp(
             mandoObject.initialY, 
             mandoObject.targetY, 
             tMando
         ); 
-    }
-    
-    // 3. Lógica de Aparición de la Tabla
-    if (futureGamesTable) {
-        if (scrollY >= TABLE_SCROLL_TRIGGER) {
-            futureGamesTable.style.bottom = '50px'; 
-            futureGamesTable.style.opacity = '1';
-            futureGamesTable.style.pointerEvents = 'auto';
-        } else {
-            futureGamesTable.style.bottom = '-100px'; 
-            futureGamesTable.style.opacity = '0';
-            futureGamesTable.style.pointerEvents = 'none';
-        }
     }
 });
 

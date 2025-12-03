@@ -396,4 +396,25 @@ footer {
 .social-links a:hover {
   color: var(--text-main);
   transform: translateY(-2px);
+<<<<<<< HEAD
+=======
+}
+
+.tablas-flex {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+  margin-left: 20% /* Alinea ambas tablas a la misma altura */
+}
+
+.tabla-container table,
+.tabla-dado table {
+  height: 100%;
+}
+
+.tabla-container td,
+.tabla-dado td {
+  vertical-align: middle;
+  height: 140px; /* Ajusta este valor según el alto de tus modelos */
+>>>>>>> origin/main
 }
