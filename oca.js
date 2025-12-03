@@ -149,8 +149,8 @@ setTimeout(() => {
 
 // Ejecutar cuando el DOM esté listo
 {
-    loadModel('model-yellow', './modelos/patoamarillo.glb');
-    loadModel('model-red', './modelos/pokeballrojo.glb');
+    loadModel('model-yellow', './modelos/patoamarillo1.glb',1.8);
+    loadModel('model-red', './modelos/pokeballrojo2.glb',1.8);
     loadModel('model-blue', './modelos/diamante.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
     loadModel('model-green', './modelos/nave1.glb', 3,{x: 0, y:-0.1, z:0} );
     loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );

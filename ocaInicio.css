@@ -95,25 +95,23 @@ header nav a:hover {
 
 /* Footer */
 footer {
+    position: fixed;
+    left: 0;
     bottom: 0;
+    width: 100%;
     height: 60px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    
-    /* Bordes superiores redondeados */
-    border-radius: 15px 15px 0 0; /* Más sutil */
-    
-    /* Sombra superior para separarlo del contenido */
+    border-radius: 15px 15px 0 0; 
     box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.25);
+    z-index: 10;
 }
 
-/* Efecto Hover para el Footer */
 footer:hover {
-    /* Un ligero cambio en el gradiente para un efecto sutil */
     background: linear-gradient(135deg, #1a325d 0%, #2a5298 100%);
-    
-    /* Sombra más suave y expandida, dando un efecto de "elevación" */
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
-    
-    /* Transformación de escala mínima para un toque profesional */
     transform: translateY(2px);
 }
