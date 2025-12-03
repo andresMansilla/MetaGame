@@ -152,7 +152,8 @@ main {
 /* Contenido principal (Juego) */
 .contenido {
   width: 75%;
-  background-color: #e6ffe6;
+  background: radial-gradient(circle at center, #f5f7fa, #c3cfe2);
+  /* Light Cloud Gradient */
   position: relative;
   overflow: hidden;
 }
