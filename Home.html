@@ -10,35 +10,83 @@
     <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
       }
     }
     </script>
 </head>
 <body>
-
-    <header>
-        <div>
-            <h1>MetaGame Lobby</h1>
-            <h3>Tu tablero, tus cartas, tu victoria</h3>
+    
+    <!-- NUEVA PANTALLA INICIAL (SPLASH SCREEN) -->
+    <div id="splash-screen">
+        <h2>MetaGame Lobby</h2>
+        <button id="view-more-button">Ver más</button>
+    </div>
+    
+    <!-- Header Principal: Mantiene la estructura interna original, el estilo lo da el nuevo CSS --><header>
+        <!-- Contenido original del header --><div style="display: flex; align-items: center;">
+            <div>
+                <h1 style="font-size: 1.5rem; font-weight: bold;">MetaGame Lobby</h1>
+                <h3 style="font-size: 0.875rem;">Tu tablero, tus cartas, tu victoria</h3>
+            </div>
+            
+            <!-- Navegación horizontal original --><nav style="margin-left: 2rem;">
+                <a href="Home.html" style="color: white; margin-left: 1rem; text-decoration: none;">Inicio</a>
+                <a href="ocaInicio.html" style="color: white; margin-left: 1rem; text-decoration: none;">Juego de la oca</a>
+                <a href="uno.html" style="color: white; margin-left: 1rem; text-decoration: none;">UNO</a>
+            </nav>
         </div>
 
-    <nav>
-      <a href="Home.html">Inicio</a>
-      <a href="ocaInicio.html">Juego de la oca</a>
-      <a href="uno.html">UNO</a>
-    </nav>
-  </header>
+        <!-- Lupa para Buscar (Search Icon) - Manteniendo el icono pedido en la solicitud --><button style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </button>
+    </header>
 
-  <div id="uno1" class="boton3d" onclick="window.location.href='ocaInicio.html'">
-    <img src="uno1.png" alt="Juego Oca">
-  </div>
+    <!-- Menú Lateral Permanente (Right Menu) - Ahora fijo a la derecha según el CSS --><aside id="right-menu">
+        <nav class="side-nav">
+            <!-- Icono de búsqueda según el CSS proporcionado para .side-nav .search-icon --><a href="#" class="search-icon">🔎</a>
+            
+            <!-- Navegación de Pastillas (manteniendo los enlaces originales) --><a href="Home.html">Inicio</a>
+            <a href="ocaInicio.html">Juego de la Oca</a>
+            <a href="uno.html">UNO</a>
+            <a href="#">Descubrir Juegos</a>
+            <a href="#">Configuración</a>
+        </nav>
+    </aside>
 
-    <footer>
-        <div>© 2025 MetaGame</div>
+    <!-- Contenido principal: El canvas 3D (Ahora es el fondo fijo) --><canvas id="three-canvas"></canvas>
+
+    <!-- Footer --><footer>
+        <div>© 2025 MetaGame | Tu tablero, tus cartas, tu victoria</div>
     </footer>
 
+    <!-- Script para manejar la pantalla de bienvenida -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('view-more-button');
+            const splashScreen = document.getElementById('splash-screen');
+
+            // Función para ocultar la pantalla de bienvenida
+            const hideSplash = () => {
+                splashScreen.classList.add('hidden');
+                // Podrías añadir lógica aquí para iniciar la escena 3D si fuera necesario.
+            };
+
+            button.addEventListener('click', () => {
+                // Al hacer clic en "Ver más", ocultamos la pantalla
+                hideSplash();
+                // Si el usuario hubiera pedido redirigir a Home.html, sería:
+                // window.location.href = 'Home.html'; 
+            });
+            
+            // Opcional: Ocultar automáticamente tras X segundos si no hay interacción.
+            // setTimeout(hideSplash, 5000); 
+        });
+    </script>
+    
     <script type="module" src="js/mesa.js"></script>
 
 </body>

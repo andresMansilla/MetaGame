@@ -1,176 +1,62 @@
-* {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* =======================================
+    MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
+    ======================================= */
 
-        body {
-            overflow: hidden; 
-            font-family: Arial, sans-serif;
-            /* Añadir padding al body para que el contenido no quede bajo el header/footer/menu */
-            padding-top: 80px; /* Altura del header */
-            padding-bottom: 60px; /* Altura del footer */
-            
-            /* ===============================
-               FONDO APLICADO DIRECTAMENTE AL BODY
-            =============================== */
-            background: linear-gradient(135deg, #a8dadc 0%, #457b9d 100%); /* Degradado sutil */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2366b3cc' fill-opacity='0.2'%3E%3Cpath d='M30 15h15v15h-15V15zm15 15h15v15h-15V30zm0-15h15V0h-15v15zm0 30h15V30h-15v15zM0 30h15v15H0V30zm0-15h15V0H0v15zM15 0h15v15H15V0zM0 45h15v15H0V45zm15 0h15v15H15V45zm30 15h15V45h-15v15zM15 15h15v15H15V15zm15 0h15v15H30V15zm0 30h15v15H30V45zM45 0h15v15H45V0zm0 30h15v15H45V30z'/%3E%3C/g%3E%3C/svg%3E"); /* Patrón de malla */
-            background-repeat: repeat;
-            background-size: 60px 60px;
-            animation: moveBackground 30s linear infinite; /* Animación para un efecto sutil */
-        }
+/* 1. Habilitar Scroll y darle altura */
+body {
+    overflow-y: auto; /* Permite el scroll */
+    height: 200vh; /* Fuerza la altura para que la barra de scroll aparezca */
+}
 
-        @keyframes moveBackground {
-            from { background-position: 0 0; }
-            to { background-position: 60px 60px; }
-        }
+/* 2. Estilos para la Ventana Emergente (Modal) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+}
 
-        /* ===============================
-            Splash Screen (Fondo inicial)
-        =============================== */
-        #splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            /* Fondo oscuro que coincide con el header */
-            background: linear-gradient(135deg, #1e3c72 0%, #0d1e3d 100%); 
-            color: white;
-            z-index: 100; /* Asegura que esté encima de todo (incluido el header con z-index 10) */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* Transición para ocultar suavemente */
-            transition: opacity 1s ease-in-out, visibility 1s;
-        }
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
 
-        #splash-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none; /* Crucial para permitir clics al canvas/UI por debajo */
-        }
+.modal-content {
+    background: #f1faee;
+    color: #1d3557;
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+}
 
-        #splash-screen h2 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
+.modal-content h3 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #e63946;
+}
 
-        #splash-screen button {
-            background-color: #a8dadc;
-            color: #1e3c72;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-        }
+.modal-content button {
+    background-color: #457b9d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        #splash-screen button:hover {
-            background-color: #66b3cc;
-            transform: translateY(-2px);
-        }
-        
-        /* ===============================
-            Header y Footer (UI)
-        =============================== */
-        header, footer {
-            position: fixed;
-            left: 0;
-            width: 100%;
-            z-index: 10; 
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 50px;
-        }
-
-        header {
-            top: 0;
-            height: 80px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-            transition: background 0.3s ease;
-        }
-
-        footer {
-            bottom: 0;
-            height: 60px;
-            justify-content: center;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-        }
-
-        /* ===============================
-            Fondo 3D (Canvas)
-        =============================== */
-        #three-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0; /* Está sobre el fondo del body */
-        }
-
-        /* ===============================
-            Menú Lateral Derecho (Right Menu)
-        =============================== */
-        #right-menu {
-            position: fixed; 
-            top: 50%; 
-            right: 30px; 
-            transform: translateY(-50%); 
-            z-index: 20; 
-            background-color: rgba(255, 255, 255, 0.9); 
-            border-radius: 12px;
-            padding: 15px 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .side-nav {
-            display: flex;
-            flex-direction: column; 
-            gap: 10px; 
-        }
-
-        .side-nav a {
-            display: block; 
-            padding: 8px;
-            text-align: center;
-            text-decoration: none;
-            color: #172a5a; 
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .side-nav a:hover {
-            background-color: #d1f2c9; 
-        }
-
-        /* Estilo específico para el icono de lupa */
-        .side-nav .search-icon {
-            font-size: 1.5em; 
-            color: #172a5a;
-            border: 2px solid #172a5a;
-            border-radius: 50%; 
-            width: 30px;
-            height: 30px;
-            line-height: 30px; 
-            margin-bottom: 5px;
-        }
-
-        .side-nav .search-icon:hover {
-            background-color: #172a5a;
-            color: white;
-        }
+.modal-content button:hover {
+    background-color: #1d3557;
+}
