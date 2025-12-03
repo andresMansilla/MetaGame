@@ -18,15 +18,10 @@
 </head>
 <body>
     
-    <!-- NUEVA PANTALLA INICIAL (SPLASH SCREEN) -->
     <div id="splash-screen">
         <h2>MetaGame Lobby</h2>
         <button id="view-more-button">Ven a divertirte </button>
     </div>
-    
-
-
-
     
     <header>
         <div style="display: flex; align-items: center;">
@@ -43,15 +38,15 @@
         </div>
 
         <div id="header-search-container" style="display: flex; align-items: center; position: relative;">
-    <input type="search" id="header-search-input" placeholder="Buscar juego..." 
-        style="width: 0; opacity: 0; padding: 5px 10px; border-radius: 5px; border: none; transition: width 0.3s ease, opacity 0.3s ease; margin-right: 10px;"/>
-    
-    <button id="toggle-header-search" style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-    </button>
-</div>
+            <input type="search" id="header-search-input" placeholder="Buscar juego..." 
+                style="width: 0; opacity: 0; padding: 5px 10px; border-radius: 5px; border: none; transition: width 0.3s ease, opacity 0.3s ease; margin-right: 10px;"/>
+            
+            <button id="toggle-header-search" style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
     </header>
 
     <aside id="right-menu">
@@ -65,47 +60,101 @@
             <a href="#">Configuración</a>
         </nav>
     </aside>
-<div id="game-not-available-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h3>Juego aún no disponible</h3>
-        <p>¡Estamos trabajando duro para traer este juego pronto!</p>
-        <br>
-        <button id="modal-close-button">Volver a la Sala Principal</button>
-    </div>
-</div>
-   <canvas id="three-canvas"></canvas>
+
+    
+    <div id="future-games-table">
+        <div class="table-content">
+            <h3 class="table-title">Futuros Juegos No Disponibles</h3>
+            <div class="game-cards">
+                <div class="game-card">
+                    <span class="lock-icon">🔒</span>
+                    <p>Coming Soon...</p>
+                </div>
+                <div class="game-card">
+                    <span class="lock-icon">🔒</span>
+                    <p>Coming Soon...</p>
+                </div>
+                <div class="game-card">
+                    <span class="lock-icon">🔒</span>
+                    <p>Coming Soon...</p>
+                </div>
+            </div>
+            <div class="gamepad-icon">🎮</div>
+        </div>
+    </div>
+    
+    <div id="game-not-available-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Juego aún no disponible</h3>
+            <p>¡Estamos trabajando duro para traer este juego pronto!</p>
+            <br>
+            <button id="modal-close-button">Volver a la Sala Principal</button>
+        </div>
+    </div>
+    
+    <canvas id="three-canvas"></canvas>
 
     <footer>
         <div>© 2025 MetaGame | Tu tablero, tus cartas, tu victoria</div>
     </footer>
+    
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const button = document.getElementById('view-more-button');
-        const splashScreen = document.getElementById('splash-screen');
-        
-        // NUEVAS REFERENCIAS DEL MODAL
-        const modalCloseButton = document.getElementById('modal-close-button');
-        const gameModal = document.getElementById('game-not-available-modal');
-        
-        // Aseguramos que el scroll esté arriba al inicio
-        window.scrollTo(0, 0); 
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('view-more-button');
+        const splashScreen = document.getElementById('splash-screen');
+        
+        // REFERENCIAS DEL MODAL
+        const modalCloseButton = document.getElementById('modal-close-button');
+        const gameModal = document.getElementById('game-not-available-modal');
+        
+        // Referencias para la lupa (Header y Right Menu)
+        const toggleHeaderSearchBtn = document.getElementById('toggle-header-search');
+        const headerSearchInput = document.getElementById('header-search-input');
+        const toggleSideMenuSearchBtn = document.getElementById('toggle-side-menu-search');
 
-        const hideSplash = () => {
-            splashScreen.classList.add('hidden');
-            // CRÍTICO: Permitir el scroll después de ocultar el splash
-            document.body.style.overflow = 'auto'; 
-        };
+        // Aseguramos que el scroll esté arriba al inicio
+        window.scrollTo(0, 0); 
 
-        button.addEventListener('click', () => {
-            hideSplash();
-        });
-        
-        // Lógica del botón de la ventana emergente para volver al index
-        modalCloseButton.addEventListener('click', () => {
-            // Redireccionar al index, recargando la página
-            window.location.href = 'index.html'; 
-        });
-    });
+        const hideSplash = () => {
+            splashScreen.classList.add('hidden');
+            // CRÍTICO: Permitir el scroll después de ocultar el splash
+            document.body.style.overflow = 'auto'; 
+        };
+
+        button.addEventListener('click', () => {
+            hideSplash();
+        });
+        
+        // Lógica del botón de la ventana emergente para volver al index
+        modalCloseButton.addEventListener('click', () => {
+            // Redireccionar al index, recargando la página
+            window.location.href = 'index.html'; 
+        });
+
+        /* === LOGICA DE BUSQUEDA === */
+        toggleHeaderSearchBtn.addEventListener('click', () => {
+            if (headerSearchInput.style.width === '0px' || headerSearchInput.style.width === '') {
+                headerSearchInput.style.width = '200px'; 
+                headerSearchInput.style.opacity = '1';
+                headerSearchInput.style.padding = '5px 10px';
+                headerSearchInput.focus();
+            } else {
+                headerSearchInput.style.width = '0px';
+                headerSearchInput.style.opacity = '0';
+                headerSearchInput.style.padding = '5px 0px';
+                headerSearchInput.value = ''; 
+            }
+        });
+
+        toggleSideMenuSearchBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            if (headerSearchInput.style.width === '0px' || headerSearchInput.style.width === '') {
+                toggleHeaderSearchBtn.click();
+            } else {
+                headerSearchInput.focus();
+            }
+        });
+    });
 </script>
     
     <script type="module" src="js/mesa.js"></script>

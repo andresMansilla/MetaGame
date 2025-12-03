@@ -1,18 +1,54 @@
-/* =======================================
-   VARIABLES DE COLOR (Tema Neon Grid / Ciberpunk)
-   ======================================= */
-:root {
-    --color-dark-void: #0A0A1F; /* Fondo muy oscuro, casi negro */
-    --color-primary-neon: #ff0055; /* Rosa/rojo eléctrico */
-    --color-secondary-neon: #00ffff; /* Cian brillante */
-    --color-ui-dark: #1A325D; 
-    --color-ui-light: #f1faee; 
-    --grid-size: 50px; /* Rejilla más fina y densa */
-}
-/* =======================================
-   MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
-   ======================================= */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap');
 
+/* =======================================
+    VARIABLES DE COLOR (Modern Premium Dark)
+    ======================================= */
+:root {
+    --bg-main: #0f172a; /* Fondo muy oscuro */
+    --bg-surface: #1e293b; /* Superficie para módulos/cards */
+    --bg-surface-hover: #334155; /* Fondo de elementos al pasar el ratón */
+    --primary: #3b82f6; /* Color de acento principal (Azul) */
+    --primary-hover: #2563eb;
+    --secondary: #8b5cf6; /* Color de acento secundario (Púrpura) */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --glass-bg: rgba(15, 23, 42, 0.7); /* Fondo de vidrio semi-transparente */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --radius-lg: 16px;
+    --radius-md: 8px;
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --grid-size: 50px; /* Se mantiene para la animación si se usa */
+}
+
+/* =======================================
+    ANIMACIONES (Reutilizando las del tema Premium)
+    ======================================= */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* El fondo ya no se animará, pero mantenemos la definición si fuera necesario */
+@keyframes moveBackground {
+    from { background-position: 0 0; }
+    to { background-position: var(--grid-size) var(--grid-size); }
+}
+
+/* =======================================
+    MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
+    ======================================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,59 +57,57 @@
 
 body {
     /* CRÍTICO: Permitir scroll vertical y darle altura */
-    overflow-y: auto; 
+    overflow-y: auto;
     height: 200vh; 
     
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     padding-top: 80px; 
     padding-bottom: 60px; 
     
-    /* === NUEVO FONDO: Neon Grid / Ciberpunk === */
-    background-color: var(--color-dark-void);
+    /* === FONDO: Premium Dark === */
+    background-color: var(--bg-main);
     background-image: 
-        /* Rejilla de fondo (Grid) */
-        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        /* Neblina o degradado sutil con el color primario neon */
-        radial-gradient(ellipse at center, rgba(255, 0, 85, 0.15) 0%, transparent 80%);
+        radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.08), transparent 30%), /* Sutil glow azul */
+        radial-gradient(circle at 20% 90%, rgba(139, 92, 246, 0.08), transparent 30%); /* Sutil glow púrpura */
     
-    background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size), cover;
-    background-position: 0 0;
+    background-size: cover;
+    background-position: center;
     
-    /* Animación más rápida para el patrón */
-    animation: moveBackground 25s linear infinite;
+    /* Animación de carga sutil */
+    animation: fadeIn 1s ease-out;
     
-    /* Cursores personalizados */
-    cursor: url('puntero_personalizado.png'), auto; 
+    /* Restauramos los cursores por defecto ya que los archivos PNG no existen */
+    cursor: auto; 
 }
 
 a, button, #splash-screen button {
-    cursor: url('puntero_interactivo.png'), pointer; 
+    cursor: pointer; 
 }
 
-@keyframes moveBackground {
-    from { background-position: 0 0; }
-    to { background-position: var(--grid-size) var(--grid-size); }
+/* Regla general para aplicar la tipografía Rajdhani y un tamaño base */
+.rajdhani-font {
+    font-family: 'Rajdhani', sans-serif; 
+    font-weight: 600;
 }
 
 /* ===============================
-   Splash Screen (Fondo inicial)
-   =============================== */
+    Splash Screen (Fondo inicial)
+    =============================== */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Fondo muy oscuro y dramático para el inicio */
-    background: linear-gradient(135deg, #050510 0%, #100515 100%); 
-    color: white;
+    /* Nuevo fondo oscuro premium */
+    background: var(--bg-main); 
+    color: var(--text-main);
     z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s ease-in-out, visibility 1s;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
     overflow: hidden; 
 }
 
@@ -85,43 +119,52 @@ a, button, #splash-screen button {
 
 #splash-screen h2 {
     font-size: 4rem;
-    margin-bottom: 20px;
-    /* Efecto de brillo neon */
-    text-shadow: 0 0 10px var(--color-primary-neon), 0 0 20px var(--color-primary-neon);
+    margin-bottom: 30px;
+    font-weight: 800;
+    color: var(--primary);
+    /* Sombra sutil en lugar de neon intenso */
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); 
 }
 
 #splash-screen button {
-    background-color: var(--color-primary-neon); /* Color de acción */
-    color: var(--color-dark-void); /* Texto oscuro en el botón brillante */
+    background-color: var(--primary); 
+    color: var(--bg-main); 
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    padding: 15px 40px;
+    font-size: 1.3rem; /* Aumentado */
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-primary-neon);
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al botón */
+    text-transform: uppercase;
 }
 
 #splash-screen button:hover {
-    background-color: #ff3377; 
+    background-color: var(--primary-hover); 
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(59, 130, 246, 0.7);
 }
 
 /* ===============================
-   Header y Footer (UI)
-   =============================== */
+    Header y Footer (UI - Glassmorphism)
+    =============================== */
 header, footer {
     position: fixed;
     left: 0;
     width: 100%;
     z-index: 10; 
-    background: linear-gradient(135deg, #101030 0%, var(--color-ui-dark) 100%); /* Ligeramente más oscuro */
-    color: var(--color-secondary-neon); /* Texto con color de acento neon */
+    
+    /* Estilo de Vidrio Premium */
+    background: var(--glass-bg); 
+    backdrop-filter: blur(12px);
+    color: var(--text-main); 
+    
     display: flex;
     align-items: center;
-    padding: 15px 50px; 
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 0 40px; 
+    transition: all 0.3s ease;
 }
 
 /* --- SECCIÓN HEADER --- */
@@ -129,14 +172,46 @@ header {
     top: 0;
     height: 80px;
     justify-content: space-between;
-    border-radius: 0 0 15px 15px; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 255, 0.3); /* Sombra con brillo cian */
+    border-bottom: 1px solid var(--glass-border); 
+    box-shadow: var(--shadow-md); 
+    animation: slideDown 0.8s ease-out;
+}
+
+/* Contenedor principal de texto en el header */
+.header-text-group h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem; /* Aumentado */
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+header h1 {
+    font-size: 1.8rem; /* Tamaño ligeramente mayor */
+    color: var(--primary);
+    font-family: 'Rajdhani', sans-serif; /* Nueva tipografía para temática de juego */
+    font-weight: 700; 
+    letter-spacing: 2px; /* Espaciado para un look más tecnológico */
+    text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* Sutil efecto de resplandor azul */
+}
+
+/* Navegación dentro del Header */
+.header-nav a {
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente a la navegación */
+    font-size: 1.1rem; /* Aumentar el tamaño */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: var(--primary-hover) !important;
 }
 
 header:hover {
-    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 255, 255, 0.5);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    transform: translateY(-1px);
 }
 
 /* --- SECCIÓN FOOTER --- */
@@ -144,19 +219,23 @@ footer {
     bottom: 0;
     height: 60px;
     justify-content: center;
-    border-radius: 15px 15px 0 0; 
-    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 255, 255, 0.3);
+    border-top: 1px solid var(--glass-border); 
+    box-shadow: var(--shadow-md);
+    color: var(--text-muted);
+    font-size: 0.95rem; /* Aumentado */
+    animation: slideUp 0.8s ease-out;
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al footer */
+    font-weight: 600;
 }
 
 footer:hover {
-    background: linear-gradient(135deg, var(--color-ui-dark) 0%, #2a5298 100%);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 255, 0.5);
-    transform: translateY(2px);
+    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.6);
+    transform: translateY(1px);
 }
 
 /* ===============================
-   Fondo 3D (Canvas)
-   =============================== */
+    Fondo 3D (Canvas)
+    =============================== */
 #three-canvas {
     position: fixed;
     top: 0;
@@ -167,19 +246,26 @@ footer:hover {
 }
 
 /* ===============================
-   Menú Lateral Derecho (Right Menu)
-   =============================== */
+    Menú Lateral Derecho (Right Menu)
+    =============================== */
 #right-menu {
     position: fixed; 
     top: 50%; 
     right: 30px; 
     transform: translateY(-50%); 
     z-index: 20; 
-    background-color: rgba(255, 255, 255, 0.9); /* Puedes mantener un fondo claro semi-transparente o usar uno oscuro */
-    border-radius: 12px;
+    /* Nuevo estilo: Superficie oscura premium */
+    background-color: var(--bg-surface); 
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     padding: 15px 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.5s ease-in-out, visibility 0.5s; 
+    box-shadow: var(--shadow-md);
+    transition: all 0.5s ease-in-out; 
+}
+
+#right-menu:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+    transform: translateY(-50%) scale(1.03);
 }
 
 .side-nav {
@@ -189,47 +275,56 @@ footer:hover {
 }
 
 .side-nav a {
-    display: block; 
-    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
     text-align: center;
     text-decoration: none;
-    color: #172a5a; 
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: var(--text-main); 
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    background-color: transparent;
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al menú lateral */
+    font-size: 1.05rem; /* Aumentado */
 }
 
 .side-nav a:hover {
-    background-color: var(--color-secondary-neon); /* Hover con brillo cian */
-    color: var(--color-dark-void);
+    background-color: var(--bg-surface-hover); 
+    color: var(--primary);
+    transform: translateX(-3px);
 }
 
 .side-nav .search-icon {
     font-size: 1.5em; 
-    color: var(--color-primary-neon); /* Icono principal neon */
-    border: 2px solid var(--color-primary-neon);
-    border-radius: 50%; 
-    width: 30px;
-    height: 30px;
-    line-height: 30px; 
-    margin-bottom: 5px;
+    color: var(--secondary); 
+    border: 2px solid var(--secondary);
+    border-radius: var(--radius-full); 
+    width: 40px;
+    height: 40px;
+    line-height: 38px; 
+    margin: 5px 0;
+    transition: all 0.3s ease;
 }
 
 .side-nav .search-icon:hover {
-    background-color: var(--color-primary-neon);
-    color: white;
+    background-color: var(--secondary);
+    color: var(--bg-main);
+    transform: rotate(10deg);
 }
 
 /* ===============================
-   Ventana Emergente (Modal)
-   =============================== */
+    Ventana Emergente (Modal)
+    =============================== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85); /* Fondo más opaco para enfoque */
+    /* Fondo oscuro semi-transparente */
+    background-color: rgba(0, 0, 0, 0.9); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -245,15 +340,17 @@ footer:hover {
 }
 
 .modal-content {
-    background: var(--color-dark-void); /* Modal oscuro */
-    color: white;
+    background: var(--bg-surface); 
+    color: var(--text-main);
     padding: 30px 40px;
-    border-radius: 15px;
+    border-radius: var(--radius-lg);
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 20px var(--color-secondary-neon); /* Brillo cian en el borde */
-    max-width: 400px;
+    /* Sombra profunda y elegante */
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(139, 92, 246, 0.4); 
+    max-width: 450px;
     transform: scale(0.9);
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--border-color);
 }
 
 .modal-overlay.visible .modal-content {
@@ -262,22 +359,165 @@ footer:hover {
 
 .modal-content h3 {
     margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: var(--color-primary-neon); /* Título en color de acento */
+    font-size: 1.9rem; /* Aumentado */
+    color: var(--secondary); /* Color secundario para el título */
+    font-weight: 700;
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al modal h3 */
+    text-transform: uppercase;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    font-size: 1.05rem; /* Aumentado */
 }
 
 .modal-content button {
-    background-color: var(--color-secondary-neon);
-    color: var(--color-dark-void);
+    background-color: var(--primary);
+    color: var(--bg-main);
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.1rem; /* Aumentado */
+    font-weight: 600;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al botón */
 }
 
 .modal-content button:hover {
-    background-color: #55ffff;
-    box-shadow: 0 0 10px var(--color-secondary-neon);
+    background-color: var(--primary-hover);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+    transform: translateY(-1px);
+}
+
+/* ===============================
+    Textos sobre la escena 3D (FIJO Y CENTRADO)
+    =============================== */
+.neon-text-container {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; 
+    z-index: 5; 
+}
+
+.neon-title {
+    position: absolute;
+    font-size: 3.8rem; /* Ligeramente aumentado */
+    font-weight: 900;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 0.9;
+    /* Eliminamos el neon intenso, usando un acento de color principal */
+    text-shadow: 
+        0 0 5px rgba(59, 130, 246, 0.5),
+        0 0 10px rgba(59, 130, 246, 0.3);
+    transition: none; 
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente a los títulos 3D */
+    text-transform: uppercase;
+}
+
+/* Posicionamiento ESTÁTICO y Fijo sobre la mesa, centrados */
+#neon-oca {
+    top: 35%; 
+    left: -120px; 
+    transform: translate(-100%, -50%); 
+    color: var(--secondary); /* Usamos el color secundario (Púrpura) */
+}
+
+#neon-uno {
+    top: 35%; 
+    left: 120px; 
+    transform: translate(0%, -50%); 
+    color: var(--primary); /* Usamos el color primario (Azul) */
+}
+
+
+/* ===============================
+    Tabla de Futuros Juegos (Scroll)
+    =============================== */
+#future-games-table {
+    position: fixed;
+    bottom: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 650px;
+    max-width: 95%;
+    z-index: 15; 
+    padding: 20px;
+    pointer-events: none; 
+    opacity: 0;
+    transition: bottom 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.table-content {
+    /* Fondo: Superficie premium */
+    background: var(--bg-surface); 
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    text-align: center;
+    
+    /* Efecto de borde sutil */
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.table-content:hover {
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
+}
+
+.table-title {
+    color: var(--text-main);
+    font-size: 1.6rem; /* Aumentado */
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente */
+}
+
+.game-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.game-card {
+    flex-grow: 1;
+    background: var(--bg-main);
+    padding: 20px 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, border-color 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+}
+
+.lock-icon {
+    font-size: 2.5em; 
+    color: var(--secondary); /* Púrpura */
+    display: block;
+    margin-bottom: 10px;
+}
+
+.game-card p {
+    color: var(--text-muted);
+    font-size: 1rem; /* Aumentado */
+    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente */
+}
+
+.gamepad-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    margin-top: 10px;
 }
