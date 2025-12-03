@@ -65,11 +65,8 @@ main {
 
 /* Barra lateral */
 .estadisticas {
-  width: 18%;
-  min-width: 180px;
-  max-width: 240px;
+  width: 25%;
   background-color: #f0f8ff;
-  /* Lighter, cleaner blue */
   padding: 20px;
   border-right: 1px solid #d1e8ff;
   overflow-y: auto;
@@ -226,17 +223,22 @@ main {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
   background: #444;
 }
-#model-tablero{
-  height: 600px;
-  width: 800px;
-  margin-top: 20px; /*cambiar a 20%*/
-  margin-left: 20%;
-}
-#model-dado{
+#model-dado {
   width: 80px;
   height: 80px;
-  margin-top: 20px; /*cambiar a 20%*/
+  margin-top: 20px;
+  margin-left: 0%;
+  position: relative;   /* necesario */
+  z-index: 10;          /* más alto que el tablero */
+}
+
+#model-tablero {
+  height: 1200px;
+  width: 1200px;
   margin-left: 20%;
+  margin-bottom: 10%;
+  position: relative;   /* opcional, pero recomendado */
+  z-index: 1;           /* menor */
 }
 
 @keyframes pulse {
@@ -417,20 +419,32 @@ table{
   border-color: #000;
 }
 
-/* Player Cubes */
-#model-cuboA, #model-yellow {
+
+ #model-yellow {
   background-color: #ffe600;
 }
-#model-cuboR, #model-red {
+#model-red {
   background-color: #ff3c28;
 }
-#model-cuboAz, #model-blue {
+ #model-blue {
   background-color: #0094ff;
 }
-#model-cuboV, #model-green {
+#model-green {
   background-color: #00c853;
 }
-
+ 
+ #model-cuboA{
+  background-color: #ffffff;
+}
+#model-cuboR {
+  background-color: #ffffff;
+}
+#model-cuboAz {
+  background-color: #ffffff;
+}
+#model-cuboV {
+  background-color: #ffffff;
+}
 .tabla-container {
   margin-top: 32px;
   margin-left: 70px;
@@ -448,4 +462,19 @@ table{
   margin-right: 32px;
   margin-top: -140px;
 }
+.social-links {
+  display: flex;
+  align-items: center;
+}
 
+.social-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  margin-left: 15px;
+  transition: color 0.3s;
+  font-size: 0.85rem;
+}
+
+.social-links a:hover {
+  color: white;
+}
