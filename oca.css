@@ -235,8 +235,8 @@ main {
 }
 
 .medida-cubo {
-  width: 24px;
-  height: 24px;
+  width: 80px;
+  height: 80px;
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease;
@@ -318,47 +318,47 @@ tr:last-child td {
   z-index: 10;          /* más alto que el tablero */
 }
 
+
 #model-tablero {
-  height: 1200px;
-  width: 1200px;
-  margin-left: 20%;
-  margin-bottom: 10%;
-  margin-top: -130px;
-  position: relative;   /* opcional, pero recomendado */
-  z-index: 1;           /* menor */
+  width: 130%;
+  height: 130%;
+   margin-top: 170px;
+    margin-left: -19%;
+  position: static;
+  z-index: 1;
 }
 
 /* Colors for cubes */
 #model-yellow {
-  background-color: #eab308;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-red {
-  background-color: #ef4444;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-blue {
-  background-color: #3b82f6;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-green {
-  background-color: #22c55e;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboA {
-  background-color: #eab308;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboR {
-  background-color: #ef4444;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboAz {
-  background-color: #3b82f6;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 #model-cuboV {
-  background-color: #22c55e;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 /* Footer */
@@ -396,4 +396,58 @@ footer {
 .social-links a:hover {
   color: var(--text-main);
   transform: translateY(-2px);
+<<<<<<< HEAD
+=======
+}
+
+.tablas-flex {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start; /* Cambia de stretch a flex-start para alinear arriba */
+}
+
+/* Alinea los títulos de las tablas al mismo nivel */
+.tabla-container table,
+.tabla-dado table {
+  margin-top: 0;
+  /* ...existing code... */
+}
+
+/* Opcional: Asegura que los th tengan el mismo alto */
+.tabla-container th,
+.tabla-dado th {
+  height: 56px; /* Ajusta según el diseño */
+  vertical-align: middle;
+  height: 140px; /* Ajusta este valor según el alto de tus modelos */
+>>>>>>> origin/main
+}
+
+.dado-al-lado {
+  display: flex;
+  align-items: center;
+  margin-left: 32px;
+  margin-top: 0;
+}
+
+/* Nueva clase para la tabla de jugadores */
+.tabla-jugadores-wrapper {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 2;
+  pointer-events: none; /* para que no bloquee el tablero, pero permite eventos en hijos */
+}
+
+.tabla-jugadores-wrapper > .tabla-container,
+.tabla-jugadores-wrapper > .dado-al-lado {
+  pointer-events: auto; /* permite interacción en tabla y dado */
+}
+
+.tabla-container {
+  margin: 0;
 }

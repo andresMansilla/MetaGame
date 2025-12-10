@@ -147,6 +147,197 @@ setTimeout(() => {
     }
 }, 1000);
 
+// --- MODAL PATO AMARILLO ---
+let patoModalRenderer, patoModalScene, patoModalCamera, patoModalModel, isDragging = false, prevX = 0, prevY = 0;
+
+function openPatoModal() {
+    const overlay = document.getElementById('modal-pato-overlay');
+    if (!overlay) return;
+    overlay.style.display = 'block';
+
+    const container = document.getElementById('modal-pato-model');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const width = container.clientWidth || 400;
+    const height = container.clientHeight || 400;
+
+    patoModalScene = new THREE.Scene();
+    patoModalScene.background = null;
+
+    patoModalCamera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    patoModalCamera.position.set(0, 0, 3);
+    patoModalCamera.lookAt(0, 0, 0);
+
+    patoModalRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    patoModalRenderer.setSize(width, height);
+    patoModalRenderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(patoModalRenderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    patoModalScene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
+    patoModalScene.add(directionalLight);
+
+    const loader = new GLTFLoader();
+    loader.load('./modelos/patoamarillo1.glb', (gltf) => {
+        patoModalModel = gltf.scene;
+        // Centrar y escalar
+        const box = new THREE.Box3().setFromObject(patoModalModel);
+        const center = box.getCenter(new THREE.Vector3());
+        patoModalModel.position.sub(center);
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        // Escala más pequeña para el modal
+        const scale = 1.2 / maxDim;
+        patoModalModel.scale.setScalar(scale);
+        patoModalScene.add(patoModalModel);
+        patoModalRenderer.render(patoModalScene, patoModalCamera);
+    });
+}
+
+function closePatoModal() {
+    const overlay = document.getElementById('modal-pato-overlay');
+    if (overlay) overlay.style.display = 'none';
+    const container = document.getElementById('modal-pato-model');
+    if (container) container.innerHTML = '';
+    patoModalRenderer = null;
+    patoModalScene = null;
+    patoModalCamera = null;
+    patoModalModel = null;
+}
+
+// Evento para abrir modal al hacer click en el pato amarillo
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const patoDiv = document.getElementById('model-yellow');
+        if (patoDiv) {
+            patoDiv.style.cursor = 'pointer';
+            patoDiv.addEventListener('click', openPatoModal);
+            patoDiv.title = 'Haz clic para ver el pato en grande';
+        }
+        const closeBtn = document.getElementById('close-modal-pato');
+        if (closeBtn) {
+            closeBtn.onclick = closePatoModal;
+        }
+        const overlay = document.getElementById('modal-pato-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closePatoModal();
+            });
+        }
+    }, 500);
+});
+
+// --- MODAL MODELOS JUGADORES ---
+let modalRenderer, modalScene, modalCamera, modalModel;
+
+function openPlayerModal(modelPath) {
+    const overlay = document.getElementById('modal-pato-overlay');
+    if (!overlay) return;
+    overlay.style.display = 'block';
+
+    const container = document.getElementById('modal-pato-model');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const width = container.clientWidth || 400;
+    const height = container.clientHeight || 400;
+
+    modalScene = new THREE.Scene();
+    modalScene.background = null;
+
+    modalCamera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+    modalCamera.position.set(0, 0, 3);
+    modalCamera.lookAt(0, 0, 0);
+
+    modalRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    modalRenderer.setSize(width, height);
+    modalRenderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(modalRenderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    modalScene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5);
+    modalScene.add(directionalLight);
+
+    const loader = new GLTFLoader();
+    loader.load(modelPath, (gltf) => {
+        modalModel = gltf.scene;
+        // Centrar y escalar
+        const box = new THREE.Box3().setFromObject(modalModel);
+        const center = box.getCenter(new THREE.Vector3());
+        modalModel.position.sub(center);
+        const size = box.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        // Escala más pequeña para el modal
+        const scale = 1.2 / maxDim;
+        modalModel.scale.setScalar(scale);
+        modalScene.add(modalModel);
+        modalRenderer.render(modalScene, modalCamera);
+    });
+}
+
+function closePlayerModal() {
+    const overlay = document.getElementById('modal-pato-overlay');
+    if (overlay) overlay.style.display = 'none';
+    const container = document.getElementById('modal-pato-model');
+    if (container) container.innerHTML = '';
+    modalRenderer = null;
+    modalScene = null;
+    modalCamera = null;
+    modalModel = null;
+}
+
+// Evento para abrir modal al hacer click en los modelos de los jugadores
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        // Amarillo
+        const yellowDiv = document.getElementById('model-yellow');
+        if (yellowDiv) {
+            yellowDiv.style.cursor = 'pointer';
+            yellowDiv.addEventListener('click', () => openPlayerModal('./modelos/patoamarillo1.glb'));
+            yellowDiv.title = 'Haz clic para ver el pato en grande';
+        }
+        // Rojo
+        const redDiv = document.getElementById('model-red');
+        if (redDiv) {
+            redDiv.style.cursor = 'pointer';
+            redDiv.addEventListener('click', () => openPlayerModal('./modelos/pokeballrojo2.glb'));
+            redDiv.title = 'Haz clic para ver el modelo rojo en grande';
+        }
+        // Azul
+        const blueDiv = document.getElementById('model-blue');
+        if (blueDiv) {
+            blueDiv.style.cursor = 'pointer';
+            blueDiv.addEventListener('click', () => openPlayerModal('./modelos/diamante.glb'));
+            blueDiv.title = 'Haz clic para ver el modelo azul en grande';
+        }
+        // Verde
+        const greenDiv = document.getElementById('model-green');
+        if (greenDiv) {
+            greenDiv.style.cursor = 'pointer';
+            greenDiv.addEventListener('click', () => openPlayerModal('./modelos/nave1.glb'));
+            greenDiv.title = 'Haz clic para ver el modelo verde en grande';
+        }
+        // Cerrar modal
+        const closeBtn = document.getElementById('close-modal-pato');
+        if (closeBtn) {
+            closeBtn.onclick = closePlayerModal;
+        }
+        const overlay = document.getElementById('modal-pato-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closePlayerModal();
+            });
+        }
+    }, 500);
+});
+
 // Ejecutar cuando el DOM esté listo
 {
     loadModel('model-yellow', './modelos/patoamarillo1.glb',1.8);
@@ -158,5 +349,5 @@ setTimeout(() => {
     loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
     loadModel('model-cuboV', './modelos/cuboverde1.glb', 2,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
     loadModel('model-dado', './modelos/dado2.glb', 1.6,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.8, z:0},{x: 0.6, y:3.14, z:0},0);
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.5, z:0},{x: 0.6, y:3.14, z:0},0);
 }
