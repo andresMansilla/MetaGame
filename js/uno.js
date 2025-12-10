@@ -125,9 +125,9 @@ function initGame() {
     createHand(25, -15, 0, 2.5, 82, 7, 3);
 
     // Create Robots behind opponents
-    createRobot(0, -5, -29.5, 30);           // Top
-    createRobot(-32, -5, -15, 0); // Left
-    createRobot(32, -5, -15, 34.5); // Right
+    createRobot(0, -15, -35, 29.9, 'modelos/robot.glb', 3.5);           // Top
+    createRobot(-35, -15, -15, 0, 'modelos/robot.glb', 3.5); // Left
+    createRobot(35, -15, -15, 34.5, 'modelos/robot.glb', 3.5); // Right
 
     // Initial UI update (will show 7 cards because isGameReady is false)
     updateUI();
@@ -423,14 +423,15 @@ function onWindowResize() {
     }
 }
 
-function createRobot(x, y, z, rotationY) {
-    loader.load('modelos/robot.glb', (gltf) => {
+function createRobot(x, y, z, rotationY, modelPath, scale = 4) {
+    loader.load(modelPath, (gltf) => {
         const model = gltf.scene;
-        model.scale.set(20, 20, 20); // Much bigger
-        model.position.set(x, y, z); // Use passed Y
+        model.scale.set(scale, scale, scale); // Scaled
+        model.position.set(x, y, z); // Use passed Position
         model.rotation.y = rotationY;
         scene.add(model);
+        console.log(`Loaded robot from ${modelPath}`);
     }, undefined, (error) => {
-        console.error('Error loading robot:', error);
+        console.error(`Error loading robot from ${modelPath}:`, error);
     });
 }
