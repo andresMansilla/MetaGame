@@ -396,6 +396,8 @@ footer {
 .social-links a:hover {
   color: var(--text-main);
   transform: translateY(-2px);
+<<<<<<< HEAD
+=======
 }
 
 .tablas-flex {
@@ -416,6 +418,8 @@ footer {
 .tabla-dado th {
   height: 56px; /* Ajusta según el diseño */
   vertical-align: middle;
+  height: 140px; /* Ajusta este valor según el alto de tus modelos */
+>>>>>>> origin/main
 }
 
 .dado-al-lado {
