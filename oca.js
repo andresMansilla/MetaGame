@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null, ajusteRotacion = null, rotationSpeed=0.04) {
+function loadModel(containerId, modelPath, escala = 2.6, ajusteDesplazamiento = null, ajusteRotacion = null, rotationSpeed = 0.04) {
     console.log('Cargando modelo:', containerId, modelPath);
     const container = document.getElementById(containerId);
 
@@ -55,16 +55,16 @@ function loadModel(containerId, modelPath, escala=2.6, ajusteDesplazamiento=null
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
             const scale = escala / maxDim; // Escala más grande para llenar el espacio
-            
+
             model.scale.setScalar(scale);
 
             // Ajuste de posición si se proporciona.
-            if (ajusteDesplazamiento == null){
+            if (ajusteDesplazamiento == null) {
                 model.position.set(model.position.x, model.position.y, model.position.z);
             } else {
                 model.position.set(model.position.x + ajusteDesplazamiento.x, model.position.y + ajusteDesplazamiento.y, model.position.z + ajusteDesplazamiento.z);
             }
-            if (ajusteRotacion == null){
+            if (ajusteRotacion == null) {
                 model.rotation.set(model.rotation.x, model.rotation.y, model.rotation.z);
             } else {
                 model.rotation.set(model.rotation.x + ajusteRotacion.x, model.rotation.y + ajusteRotacion.y, model.rotation.z + ajusteRotacion.z);
@@ -111,15 +111,15 @@ function lanzarDadoAnimado(callback) {
         // No se puede animar el dado si no se tiene acceso
         callback && callback();
         return;
-    } 
+    }
 }
 function mostrarResultadosDado() {
     // Generar un número aleatorio para cada jugador (1-6)
     const resultados = [
-        Math.floor(Math.random() * 6) + 1, 
-        Math.floor(Math.random() * 6) + 1, 
-        Math.floor(Math.random() * 6) + 1, 
-        Math.floor(Math.random() * 6) + 1 
+        Math.floor(Math.random() * 6) + 1,
+        Math.floor(Math.random() * 6) + 1,
+        Math.floor(Math.random() * 6) + 1,
+        Math.floor(Math.random() * 6) + 1
     ];
     // Mostrar el número en los span de estadísticas
     const spans = [
@@ -146,17 +146,14 @@ setTimeout(() => {
         });
     }
 }, 1000);
-
 // --- MODAL PATO AMARILLO ---
 let patoModalRenderer, patoModalScene, patoModalCamera, patoModalModel, isDragging = false, prevX = 0, prevY = 0;
 
 function openPatoModal() {
     const overlay = document.getElementById('modal-pato-overlay');
-    if (!overlay) return;
     overlay.style.display = 'block';
 
     const container = document.getElementById('modal-pato-model');
-    if (!container) return;
     container.innerHTML = '';
 
     const width = container.clientWidth || 400;
@@ -182,7 +179,7 @@ function openPatoModal() {
     patoModalScene.add(directionalLight);
 
     const loader = new GLTFLoader();
-    loader.load('./modelos/patoamarillo1.glb', (gltf) => {
+    loader.load('./modelos/patoamarillo.glb', (gltf) => {
         patoModalModel = gltf.scene;
         // Centrar y escalar
         const box = new THREE.Box3().setFromObject(patoModalModel);
@@ -190,19 +187,49 @@ function openPatoModal() {
         patoModalModel.position.sub(center);
         const size = box.getSize(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
-        // Escala más pequeña para el modal
-        const scale = 1.2 / maxDim;
+        const scale = 2.6 / maxDim;
         patoModalModel.scale.setScalar(scale);
+
         patoModalScene.add(patoModalModel);
         patoModalRenderer.render(patoModalScene, patoModalCamera);
     });
+
+    // Animación de render
+    function animate() {
+        patoModalRenderer.render(patoModalScene, patoModalCamera);
+        if (overlay.style.display === 'block') requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Rotación con mouse
+    container.onmousedown = function (e) {
+        isDragging = true;
+        prevX = e.clientX;
+        prevY = e.clientY;
+    };
+    container.onmouseup = function () {
+        isDragging = false;
+    };
+    container.onmouseleave = function () {
+        isDragging = false;
+    };
+    container.onmousemove = function (e) {
+        if (isDragging && patoModalModel) {
+            const deltaX = (e.clientX - prevX) * 0.01;
+            const deltaY = (e.clientY - prevY) * 0.01;
+            patoModalModel.rotation.y += deltaX;
+            patoModalModel.rotation.x += deltaY;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        }
+    };
 }
 
 function closePatoModal() {
-    const overlay = document.getElementById('modal-pato-overlay');
-    if (overlay) overlay.style.display = 'none';
+    document.getElementById('modal-pato-overlay').style.display = 'none';
+    // Limpia el modelo y renderer
     const container = document.getElementById('modal-pato-model');
-    if (container) container.innerHTML = '';
+    container.innerHTML = '';
     patoModalRenderer = null;
     patoModalScene = null;
     patoModalCamera = null;
@@ -210,27 +237,25 @@ function closePatoModal() {
 }
 
 // Evento para abrir modal al hacer click en el pato amarillo
-document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-        const patoDiv = document.getElementById('model-yellow');
-        if (patoDiv) {
-            patoDiv.style.cursor = 'pointer';
-            patoDiv.addEventListener('click', openPatoModal);
-            patoDiv.title = 'Haz clic para ver el pato en grande';
-        }
-        const closeBtn = document.getElementById('close-modal-pato');
-        if (closeBtn) {
-            closeBtn.onclick = closePatoModal;
-        }
-        const overlay = document.getElementById('modal-pato-overlay');
-        if (overlay) {
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) closePatoModal();
-            });
-        }
-    }, 500);
-});
-
+setTimeout(() => {
+    const patoDiv = document.getElementById('model-yellow');
+    if (patoDiv) {
+        patoDiv.style.cursor = 'pointer';
+        patoDiv.addEventListener('click', openPatoModal);
+        patoDiv.title = 'Haz clic para ver el pato en grande';
+    }
+    const closeBtn = document.getElementById('close-modal-pato');
+    if (closeBtn) {
+        closeBtn.onclick = closePatoModal;
+    }
+    // También cerrar al hacer click fuera del modal
+    const overlay = document.getElementById('modal-pato-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closePatoModal();
+        });
+    }
+}, 1000);
 // --- MODAL MODELOS JUGADORES ---
 let modalRenderer, modalScene, modalCamera, modalModel;
 
@@ -331,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const overlay = document.getElementById('modal-pato-overlay');
         if (overlay) {
-            overlay.addEventListener('click', function(e) {
+            overlay.addEventListener('click', function (e) {
                 if (e.target === overlay) closePlayerModal();
             });
         }
@@ -340,14 +365,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Ejecutar cuando el DOM esté listo
 {
-    loadModel('model-yellow', './modelos/patoamarillo1.glb',1.8);
-    loadModel('model-red', './modelos/pokeballrojo2.glb',1.8);
-    loadModel('model-blue', './modelos/diamante.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-green', './modelos/nave1.glb', 3,{x: 0, y:-0.1, z:0} );
-    loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
-    loadModel('model-cuboR', './modelos/cuborojo1.glb',1.8,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9,{x: 0, y:0, z:0},{x: 0, y:0, z:0} );
-    loadModel('model-cuboV', './modelos/cuboverde1.glb', 2,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-dado', './modelos/dado2.glb', 1.6,{x: 0, y:0, z:0},{x: 0, y:0, z:0});
-    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7,{x: 0, y:0.5, z:0},{x: 0.6, y:3.14, z:0},0);
+    loadModel('model-yellow', './modelos/patoamarillo1.glb', 1.8);
+    loadModel('model-red', './modelos/pokeballrojo2.glb', 1.8);
+    loadModel('model-blue', './modelos/diamante.glb', 1.8, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-green', './modelos/nave1.glb', 3, { x: 0, y: -0.1, z: 0 });
+    loadModel('model-cuboA', './modelos/cuboamarillo1.glb', 1.8, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-cuboR', './modelos/cuborojo1.glb', 1.8, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-cuboV', './modelos/cuboverde1.glb', 2, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-dado', './modelos/dado2.glb', 1.6, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7, { x: 0, y: 0.5, z: 0 }, { x: 0.6, y: 3.14, z: 0 }, 0);
 }

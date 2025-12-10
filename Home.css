@@ -1,54 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap');
 
 /* =======================================
-    VARIABLES DE COLOR (Modern Premium Dark)
-    ======================================= */
+   VARIABLES DE COLOR (Modern Premium Dark)
+   ======================================= */
 :root {
-    --bg-main: #0f172a; /* Fondo muy oscuro */
-    --bg-surface: #1e293b; /* Superficie para módulos/cards */
-    --bg-surface-hover: #334155; /* Fondo de elementos al pasar el ratón */
-    --primary: #3b82f6; /* Color de acento principal (Azul) */
+    --bg-main: #0f172a;
+    /* Slate 900 */
+    --bg-surface: #1e293b;
+    /* Slate 800 */
+    --bg-surface-hover: #334155;
+    /* Slate 700 */
+
+    --primary: #3b82f6;
+    /* Blue 500 */
     --primary-hover: #2563eb;
-    --secondary: #8b5cf6; /* Color de acento secundario (Púrpura) */
+    /* Blue 600 */
+    --secondary: #8b5cf6;
+    /* Violet 500 */
+
     --text-main: #f8fafc;
+    /* Slate 50 */
     --text-muted: #94a3b8;
+    /* Slate 400 */
+
     --border-color: #334155;
-    --glass-bg: rgba(15, 23, 42, 0.7); /* Fondo de vidrio semi-transparente */
+    /* Slate 700 */
+
+    --glass-bg: rgba(15, 23, 42, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
+
     --radius-lg: 16px;
     --radius-md: 8px;
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --grid-size: 50px; /* Se mantiene para la animación si se usa */
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* =======================================
-    ANIMACIONES (Reutilizando las del tema Premium)
-    ======================================= */
+   ANIMACIONES (Premium & Dynamic)
+   ======================================= */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-/* El fondo ya no se animará, pero mantenemos la definición si fuera necesario */
-@keyframes moveBackground {
-    from { background-position: 0 0; }
-    to { background-position: var(--grid-size) var(--grid-size); }
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
 }
 
-/* =======================================
-    MODIFICACIONES MÍNIMAS PARA SCROLL Y MODAL
-    ======================================= */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -56,282 +124,433 @@
 }
 
 body {
-    /* CRÍTICO: Permitir scroll vertical y darle altura */
-    overflow-y: auto;
-    height: 200vh; 
-    
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    padding-top: 80px; 
-    padding-bottom: 60px; 
-    
-    /* === FONDO: Premium Dark === */
+    font-family: 'Exo 2', system-ui, -apple-system, sans-serif;
     background-color: var(--bg-main);
-    background-image: 
-        radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.08), transparent 30%), /* Sutil glow azul */
-        radial-gradient(circle at 20% 90%, rgba(139, 92, 246, 0.08), transparent 30%); /* Sutil glow púrpura */
-    
-    background-size: cover;
-    background-position: center;
-    
-    /* Animación de carga sutil */
-    animation: fadeIn 1s ease-out;
-    
-    /* Restauramos los cursores por defecto ya que los archivos PNG no existen */
-    cursor: auto; 
+    color: var(--text-main);
+    overflow-y: auto;
+    height: 100vh;
+    /* Animated Gradient Background */
+    background: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%),
+        var(--bg-main);
+    background-size: 200% 200%;
+    animation: fadeIn 1s ease-out, gradientMove 15s ease infinite;
 }
 
-a, button, #splash-screen button {
-    cursor: pointer; 
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    transition: color 0.3s ease;
 }
 
-/* Regla general para aplicar la tipografía Rajdhani y un tamaño base */
-.rajdhani-font {
-    font-family: 'Rajdhani', sans-serif; 
-    font-weight: 600;
+a {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary);
+    transform: scale(1.05);
 }
 
 /* ===============================
-    Splash Screen (Fondo inicial)
-    =============================== */
+   Splash Screen
+   =============================== */
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Nuevo fondo oscuro premium */
-    background: var(--bg-main); 
-    color: var(--text-main);
+    background-color: var(--bg-main);
     z-index: 100;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s;
-    overflow: hidden; 
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
 }
 
 #splash-screen.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 #splash-screen h2 {
-    font-size: 4rem;
-    margin-bottom: 30px;
-    font-weight: 800;
-    color: var(--primary);
-    /* Sombra sutil en lugar de neon intenso */
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); 
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, var(--text-main), var(--text-muted));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: slideUp 1s ease-out;
 }
 
+/* Botón con animación de luz trasera "Backlight" */
 #splash-screen button {
-    background-color: var(--primary); 
-    color: var(--bg-main); 
+    position: relative;
+    background-color: transparent;
+    color: var(--primary);
     border: none;
     padding: 15px 40px;
-    font-size: 1.3rem; /* Aumentado */
+    font-size: 1.5rem;
     font-weight: bold;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al botón */
+    font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 1;
+    overflow: hidden;
+    /* Para contener los efectos si fuera necesario */
+    transition: color 0.3s;
+    box-shadow: none;
+    /* Quitamos sombras por defecto */
+    animation: slideUp 1s ease-out 0.2s backwards;
+    /* Mantenemos slideUp pero quitamos pulseGlow */
+}
+
+/* El fondo del botón (negro/rosado oscuro) para tapar la luz central */
+#splash-screen button::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    /* El borde visible será de 3px */
+    background: var(--bg-main);
+    /* El color del fondo */
+    border-radius: calc(var(--radius-md) - 3px);
+    z-index: -1;
+}
+
+/* La luz animada por detrás */
+#splash-screen button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250%;
+    /* Mucho más grande que el botón para q al rotar cubra todo */
+    height: 250%;
+    background: conic-gradient(from 0deg,
+            transparent 0%,
+            var(--primary) 20%,
+            var(--secondary) 40%,
+            var(--primary) 60%,
+            transparent 100%);
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    animation: rotateLight 4s linear infinite;
+}
+
+@keyframes rotateLight {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 #splash-screen button:hover {
-    background-color: var(--primary-hover); 
+    color: var(--text-main);
+    text-shadow: 0 0 10px var(--primary);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(59, 130, 246, 0.7);
+}
+
+/* Aceleramos la rotación al hacer hover para feedback */
+#splash-screen button:hover::before {
+    animation-duration: 1.5s;
 }
 
 /* ===============================
-    Header y Footer (UI - Glassmorphism)
-    =============================== */
-header, footer {
+   Header & Footer
+   =============================== */
+header,
+footer {
     position: fixed;
     left: 0;
     width: 100%;
-    z-index: 10; 
-    
-    /* Estilo de Vidrio Premium */
-    background: var(--glass-bg); 
+    z-index: 50;
+    padding: 0 40px;
     backdrop-filter: blur(12px);
-    color: var(--text-main); 
-    
+    background-color: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
-    padding: 0 40px; 
-    transition: all 0.3s ease;
-}
-
-/* --- SECCIÓN HEADER --- */
-header {
-    top: 0;
-    height: 80px;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--glass-border); 
-    box-shadow: var(--shadow-md); 
     animation: slideDown 0.8s ease-out;
 }
 
-/* Contenedor principal de texto en el header */
-.header-text-group h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem; /* Aumentado */
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--text-muted);
+header {
+    top: 0;
+    height: 90px;
+    justify-content: space-between;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-header h1 {
-    font-size: 1.8rem; /* Tamaño ligeramente mayor */
-    color: var(--primary);
-    font-family: 'Rajdhani', sans-serif; /* Nueva tipografía para temática de juego */
-    font-weight: 700; 
-    letter-spacing: 2px; /* Espaciado para un look más tecnológico */
-    text-transform: uppercase;
-    text-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* Sutil efecto de resplandor azul */
-}
-
-/* Navegación dentro del Header */
-.header-nav a {
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente a la navegación */
-    font-size: 1.1rem; /* Aumentar el tamaño */
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: color 0.3s;
-}
-
-.header-nav a:hover {
-    color: var(--primary-hover) !important;
-}
-
-header:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    transform: translateY(-1px);
-}
-
-/* --- SECCIÓN FOOTER --- */
 footer {
     bottom: 0;
     height: 60px;
     justify-content: center;
-    border-top: 1px solid var(--glass-border); 
-    box-shadow: var(--shadow-md);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: none;
+    font-size: 0.9rem;
     color: var(--text-muted);
-    font-size: 0.95rem; /* Aumentado */
     animation: slideUp 0.8s ease-out;
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al footer */
+}
+
+/* Header Specifics */
+.header-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-left h1 {
+    font-size: 2rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.header-left h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+/* Contenedor central de navegación y búsqueda */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Navegación dentro del Header */
+.header-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.header-nav a {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
     font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-main);
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
 }
 
-footer:hover {
-    box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.6);
-    transform: translateY(1px);
-}
-
-/* ===============================
-    Fondo 3D (Canvas)
-    =============================== */
-#three-canvas {
-    position: fixed;
-    top: 0;
+/* Subrayado animado */
+.header-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0; 
+    background-color: var(--primary);
+    transition: width 0.3s ease;
 }
 
+.header-nav a:hover {
+    color: var(--primary);
+}
+
+.header-nav a:hover::after {
+    width: 100%;
+}
+
+/* Search Input in Header (Modified) */
+#header-search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 40px;
+}
+
+#header-search-input {
+    /* Initial State: Only Icon Space visible (visually) */
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    /* Transparent initially */
+    backdrop-filter: none;
+    border: 1px solid transparent;
+    /* No border initially */
+    color: transparent;
+    /* Hide text initially */
+    border-radius: 9999px;
+    padding: 0 10px 0 40px;
+    /* Padding for icon */
+    font-size: 1rem;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    /* Clickable area */
+
+    /* Transitions */
+    transition:
+        width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Expanded State (triggered by class or focus) */
+#header-search-container.expanded #header-search-input,
+#header-search-input:focus {
+    width: 300px;
+    background-color: rgba(30, 41, 59, 0.8);
+    /* Darker glass background */
+    backdrop-filter: blur(12px);
+    border-color: rgba(59, 130, 246, 0.5);
+    /* Primary Border */
+    color: var(--text-main);
+    cursor: text;
+    box-shadow:
+        0 0 0 4px rgba(59, 130, 246, 0.1),
+        0 10px 20px -5px rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+#header-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#header-search-container.expanded #header-search-input::placeholder,
+#header-search-input:focus::placeholder {
+    opacity: 1;
+}
+
+#toggle-header-search {
+    position: absolute;
+    /* Absolute inside container */
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 2;
+    /* Still clickable */
+    pointer-events: none;
+    /* Let clicks pass to input, essentially */
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+#header-search-container.expanded #toggle-header-search,
+#header-search-input:focus~#toggle-header-search {
+    color: var(--primary);
+    transform: scale(0.9);
+}
+
+
+
+
 /* ===============================
-    Menú Lateral Derecho (Right Menu)
-    =============================== */
+   Side Menu
+   =============================== */
 #right-menu {
-    position: fixed; 
-    top: 50%; 
-    right: 30px; 
-    transform: translateY(-50%); 
-    z-index: 20; 
-    /* Nuevo estilo: Superficie oscura premium */
-    background-color: var(--bg-surface); 
+    position: fixed;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    z-index: 40;
+    background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 15px 10px;
-    box-shadow: var(--shadow-md);
-    transition: all 0.5s ease-in-out; 
-}
-
-#right-menu:hover {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-    transform: translateY(-50%) scale(1.03);
+    padding: 16px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 1s ease-out 0.5s backwards;
 }
 
 .side-nav {
     display: flex;
-    flex-direction: column; 
-    gap: 10px; 
+    flex-direction: column;
+    gap: 8px;
 }
 
 .side-nav a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    color: var(--text-main); 
-    font-weight: 500;
+    padding: 10px 16px;
     border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-    background-color: transparent;
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al menú lateral */
-    font-size: 1.05rem; /* Aumentado */
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-align: left;
+    transition: all 0.2s ease;
 }
 
 .side-nav a:hover {
-    background-color: var(--bg-surface-hover); 
-    color: var(--primary);
-    transform: translateX(-3px);
+    background-color: var(--bg-surface-hover);
+    color: var(--text-main);
+    transform: translateX(5px);
 }
 
 .side-nav .search-icon {
-    font-size: 1.5em; 
-    color: var(--secondary); 
-    border: 2px solid var(--secondary);
-    border-radius: var(--radius-full); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40px;
     height: 40px;
-    line-height: 38px; 
-    margin: 5px 0;
+    border-radius: 50%;
+    background-color: var(--bg-surface-hover);
+    margin: 0 auto 8px;
+    color: var(--primary);
     transition: all 0.3s ease;
 }
 
 .side-nav .search-icon:hover {
-    background-color: var(--secondary);
-    color: var(--bg-main);
-    transform: rotate(10deg);
+    background-color: var(--primary);
+    color: white;
+    transform: rotate(90deg);
 }
 
 /* ===============================
-    Ventana Emergente (Modal)
-    =============================== */
+   Modal
+   =============================== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* Fondo oscuro semi-transparente */
-    background-color: rgba(0, 0, 0, 0.9); 
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 200; 
+    z-index: 200;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+    transition: all 0.3s;
 }
 
 .modal-overlay.visible {
@@ -340,101 +559,67 @@ footer:hover {
 }
 
 .modal-content {
-    background: var(--bg-surface); 
-    color: var(--text-main);
-    padding: 30px 40px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 32px;
     border-radius: var(--radius-lg);
     text-align: center;
-    /* Sombra profunda y elegante */
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(139, 92, 246, 0.4); 
-    max-width: 450px;
-    transform: scale(0.9);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-overlay.visible .modal-content {
     transform: scale(1);
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-content h3 {
-    margin-bottom: 20px;
-    font-size: 1.9rem; /* Aumentado */
-    color: var(--secondary); /* Color secundario para el título */
-    font-weight: 700;
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al modal h3 */
-    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .modal-content p {
     color: var(--text-muted);
-    margin-bottom: 25px;
-    font-size: 1.05rem; /* Aumentado */
+    margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
 .modal-content button {
     background-color: var(--primary);
-    color: var(--bg-main);
+    color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 1.1rem; /* Aumentado */
-    font-weight: 600;
+    padding: 12px 24px;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.3s;
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente al botón */
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
 .modal-content button:hover {
     background-color: var(--primary-hover);
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
-    transform: translateY(-1px);
+    transform: scale(1.05);
 }
 
 /* ===============================
-    Textos sobre la escena 3D (FIJO Y CENTRADO)
-    =============================== */
-.neon-text-container {
+   3D Canvas
+   =============================== */
+#three-canvas {
     position: fixed;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%); 
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none; 
-    z-index: 5; 
+    z-index: 0;
+    animation: fadeIn 2s ease-out;
 }
 
-.neon-title {
-    position: absolute;
-    font-size: 3.8rem; /* Ligeramente aumentado */
-    font-weight: 900;
-    color: var(--text-main);
-    text-align: center;
-    line-height: 0.9;
-    /* Eliminamos el neon intenso, usando un acento de color principal */
-    text-shadow: 
-        0 0 5px rgba(59, 130, 246, 0.5),
-        0 0 10px rgba(59, 130, 246, 0.3);
-    transition: none; 
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente a los títulos 3D */
-    text-transform: uppercase;
-}
-
-/* Posicionamiento ESTÁTICO y Fijo sobre la mesa, centrados */
-#neon-oca {
-    top: 35%; 
-    left: -120px; 
-    transform: translate(-100%, -50%); 
-    color: var(--secondary); /* Usamos el color secundario (Púrpura) */
-}
-
-#neon-uno {
-    top: 35%; 
-    left: 120px; 
-    transform: translate(0%, -50%); 
-    color: var(--primary); /* Usamos el color primario (Azul) */
-}
+/* ===============================
+    Textos sobre la escena 3D (REEMPLAZADO POR TEXTO 3D EN JS)
+    =============================== */
+/* Se eliminaron .neon-text-container y .neon-title porque ahora son objetos 3D */
 
 
 /* ===============================
@@ -442,25 +627,25 @@ footer:hover {
     =============================== */
 #future-games-table {
     position: fixed;
-    bottom: -100px; 
+    bottom: -100px;
     left: 50%;
     transform: translateX(-50%);
     width: 650px;
     max-width: 95%;
-    z-index: 15; 
+    z-index: 15;
     padding: 20px;
-    pointer-events: none; 
+    pointer-events: none;
     opacity: 0;
     transition: bottom 0.8s ease-out, opacity 0.8s ease-out;
 }
 
 .table-content {
     /* Fondo: Superficie premium */
-    background: var(--bg-surface); 
+    background: var(--bg-surface);
     border-radius: var(--radius-lg);
     padding: 25px;
     text-align: center;
-    
+
     /* Efecto de borde sutil */
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
@@ -473,11 +658,12 @@ footer:hover {
 
 .table-title {
     color: var(--text-main);
-    font-size: 1.6rem; /* Aumentado */
+    font-size: 1.6rem;
+    /* Aumentado */
     margin-bottom: 20px;
     font-weight: 600;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente */
+    font-family: 'Orbitron', sans-serif;
 }
 
 .game-cards {
@@ -503,16 +689,18 @@ footer:hover {
 }
 
 .lock-icon {
-    font-size: 2.5em; 
-    color: var(--secondary); /* Púrpura */
+    font-size: 2.5em;
+    color: var(--secondary);
+    /* Púrpura */
     display: block;
     margin-bottom: 10px;
 }
 
 .game-card p {
     color: var(--text-muted);
-    font-size: 1rem; /* Aumentado */
-    font-family: 'Rajdhani', sans-serif; /* Aplicar la fuente */
+    font-size: 1rem;
+    /* Aumentado */
+    font-family: 'Exo 2', sans-serif;
 }
 
 .gamepad-icon {

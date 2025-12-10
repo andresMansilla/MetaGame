@@ -9,20 +9,38 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <div class="header-left">
-            <h1 class="logo">MetaGame Lobby</h1>
+            <h1>MetaGame Lobby</h1>
+            <h3>Tu tablero, tus cartas, tu victoria</h3>
         </div>
 
-        <nav>
-            <a href="index.html">Inicio</a>
-            <a href="ocaInicio.html">Juego de la oca</a>
-            <a href="uno.html">UNO</a>
-        </nav>
+        <div class="header-actions">
+            <div id="header-search-container">
+                <button id="toggle-header-search"
+                    style="background: none; border: none; color: white; cursor: pointer; padding: 5px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <input type="search" id="header-search-input" placeholder="Buscar juego..." />
+            </div>
+
+            <nav class="header-nav">
+                <a href="index.html">Inicio</a>
+                <a href="ocaInicio.html">Juego de la oca</a>
+                <a href="uno.html">UNO</a>
+            </nav>
+        </div>
     </header>
 
     <!-- Contenedor central -->
@@ -36,6 +54,28 @@
     <footer>
         <div>© 2025 MetaGame | Tu tablero, tus cartas, tu victoria</div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleHeaderSearchBtn = document.getElementById('toggle-header-search');
+            const headerSearchInput = document.getElementById('header-search-input');
+
+            if (toggleHeaderSearchBtn && headerSearchInput) {
+                toggleHeaderSearchBtn.addEventListener('click', () => {
+                    if (headerSearchInput.style.width === '0px' || headerSearchInput.style.width === '') {
+                        headerSearchInput.style.width = '350px';
+                        headerSearchInput.style.opacity = '1';
+                        headerSearchInput.style.padding = '0 20px';
+                        headerSearchInput.focus();
+                    } else {
+                        headerSearchInput.style.width = '0px';
+                        headerSearchInput.style.opacity = '0';
+                        headerSearchInput.style.padding = '0px';
+                        headerSearchInput.value = '';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
