@@ -75,11 +75,14 @@
 </div>
    <canvas id="three-canvas"></canvas>
 
+<!-- Luz de enfoque visual desde la barra del menú -->
+<div id="menu-spotlight"></div>
+
     <footer>
         <div>© 2025 MetaGame | Tu tablero, tus cartas, tu victoria</div>
     </footer>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+     document.addEventListener('DOMContentLoaded', () => {
         const button = document.getElementById('view-more-button');
         const splashScreen = document.getElementById('splash-screen');
         
@@ -111,4 +114,23 @@
     <script type="module" src="js/mesa.js"></script>
 
 </body>
+<style>
+/* Luz de enfoque visual desde la barra del menú, haz de luz amarillo claro */
+#menu-spotlight {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 90vh;
+  z-index: 3;
+  background:
+    radial-gradient(ellipse 35% 18% at 54% 0%, rgba(255,255,180,0.92) 0%, rgba(255,255,200,0.28) 60%, rgba(255,255,180,0.07) 85%, rgba(30,41,59,0.00) 100%),
+    linear-gradient(180deg, rgba(255,255,180,0.18) 0%, rgba(255,255,255,0.01) 80%);
+  opacity: 1;
+  transition: opacity 0.5s;
+  mix-blend-mode: lighten;
+  filter: blur(0.5px) brightness(1.22) saturate(1.15);
+}
+</style>
 </html>

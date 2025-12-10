@@ -206,3 +206,8 @@ window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 });
+
+// Cuando cargues el modelo de la carta y el dado, usa el mismo valor de escala.
+// Ejemplo:
+loadModel('model-carta', './modelos/carta.glb', 1.6);
+loadModel('model-dado', './modelos/dado.glb', 1.6);
