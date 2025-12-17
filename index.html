@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetaGame Lobby 3D</title>
-
     <link rel="stylesheet" href="home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +26,7 @@
 
     <div id="splash-screen">
         <h2>MetaGame Lobby</h2>
-        <button id="view-more-button">Ven a divertirte </button>
+        <button id="view-more-button">Ven a divertirte</button>
     </div>
 
     <header>
@@ -57,20 +56,6 @@
         </div>
     </header>
 
-    <!--<aside id="right-menu">
-        <nav class="side-nav">
-            <a href="#" class="search-icon" id="toggle-side-menu-search">🔎</a>
-
-            <a href="index.html">Inicio</a>
-            <a href="ocaInicio.html">Juego de la Oca</a>
-            <a href="uno.html">UNO</a>
-            <a href="#">Descubrir Juegos</a>
-            <a href="#">Configuración</a>
-        </nav>
-    </aside>-->
-
-    <!-- 3D Text Replaced with actual 3D objects in mesa.js -->
-
     <div id="future-games-table">
         <div class="table-content">
             <h3 class="table-title">Futuros Juegos No Disponibles</h3>
@@ -88,7 +73,7 @@
                     <p>Coming Soon...</p>
                 </div>
             </div>
-            <div class="gamepad-icon">🎮</div>
+            <div class="gamepad-icon"></div>
         </div>
     </div>
 
@@ -111,82 +96,33 @@
         document.addEventListener('DOMContentLoaded', () => {
             const button = document.getElementById('view-more-button');
             const splashScreen = document.getElementById('splash-screen');
-
-            // REFERENCIAS DEL MODAL
             const modalCloseButton = document.getElementById('modal-close-button');
             const gameModal = document.getElementById('game-not-available-modal');
-
-            // Referencias para la lupa (Header y Right Menu)
             const toggleHeaderSearchBtn = document.getElementById('toggle-header-search');
             const headerSearchInput = document.getElementById('header-search-input');
-            const toggleSideMenuSearchBtn = document.getElementById('toggle-side-menu-search');
 
-            // Aseguramos que el scroll esté arriba al inicio
+            // Resetear scroll al inicio
             window.scrollTo(0, 0);
 
-            const hideSplash = () => {
-                splashScreen.classList.add('hidden');
-                // CRÍTICO: Permitir el scroll después de ocultar el splash
-                document.body.style.overflow = 'auto';
-            };
-
             button.addEventListener('click', () => {
-                hideSplash();
+                splashScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Permitir scroll tras splash
             });
 
-            // Lógica del botón de la ventana emergente para volver al index
             modalCloseButton.addEventListener('click', () => {
-                // Redireccionar al index, recargando la página
-                window.location.href = 'index.html';
+                gameModal.classList.remove('visible');
             });
 
-            /* === LOGICA DE BUSQUEDA === */
             toggleHeaderSearchBtn.addEventListener('click', () => {
-                if (headerSearchInput.style.width === '0px' || headerSearchInput.style.width === '') {
-                    headerSearchInput.style.width = '350px'; // Much wider for impact
-                    headerSearchInput.style.opacity = '1';
-                    headerSearchInput.style.padding = '0 20px'; // CLEANER PADDING for pill shape
-                    headerSearchInput.focus();
-                } else {
-                    headerSearchInput.style.width = '0px';
-                    headerSearchInput.style.opacity = '0';
-                    headerSearchInput.style.padding = '0px';
-                    headerSearchInput.value = '';
-                }
-            });
-
-            toggleSideMenuSearchBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (headerSearchInput.style.width === '0px' || headerSearchInput.style.width === '') {
-                    toggleHeaderSearchBtn.click();
-                } else {
-                    headerSearchInput.focus();
-                }
+                const isOpen = headerSearchInput.style.width === '300px';
+                headerSearchInput.style.width = isOpen ? '0px' : '300px';
+                headerSearchInput.style.opacity = isOpen ? '0' : '1';
+                if (!isOpen) headerSearchInput.focus();
             });
         });
     </script>
 
     <script type="module" src="js/mesa.js"></script>
-
 </body>
-<style>
-    /* Luz de enfoque visual desde la barra del menú, haz de luz amarillo claro */
-    #menu-spotlight {
-        pointer-events: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 90vh;
-        z-index: 3;
-        background:
-            radial-gradient(ellipse 35% 18% at 54% 0%, rgba(255, 255, 180, 0.92) 0%, rgba(255, 255, 200, 0.28) 60%, rgba(255, 255, 180, 0.07) 85%, rgba(30, 41, 59, 0.00) 100%),
-            linear-gradient(180deg, rgba(255, 255, 180, 0.18) 0%, rgba(255, 255, 255, 0.01) 80%);
-        opacity: 1;
-        transition: opacity 0.5s;
-        mix-blend-mode: lighten;
-        filter: blur(0.5px) brightness(1.22) saturate(1.15);
-    }
-</style>
 
 </html>

@@ -71,7 +71,7 @@ const MESA_Y_POSITION = -3.5; // Posición de la mesa
 // -------------------------------------------
 // CARGAR MESA (Estática)
 // -------------------------------------------
-loader.load("modelos/billar5glb.glb", (gltf) => {
+loader.load("modelos/billar.glb", (gltf) => {
     mesa = gltf.scene;
     mesa.scale.set(6, 6, 6);
     mesa.position.set(0, MESA_Y_POSITION, 2);
@@ -186,19 +186,13 @@ function createFloatingText(message, position, font, colorHex) {
     group.add(wireMesh);
 
     scene.add(group);
-
-    // Guardar referencia para animación
     floatingTexts.push({
         group: group,
-        mesh: textMesh, // Para acceder al material emissive
+        mesh: textMesh,
         baseY: position.y,
-        timeOffset: Math.random() * 100 // Desfase aleatorio
+        timeOffset: Math.random() * 100
     });
 }
-
-// -------------------------------------------
-// CARGAR MODELO MANDO (Juego Futuro)
-// -------------------------------------------
 function loadMando() {
     loader.load("modelos/Mando.glb", (gltf) => {
         mandoObject = gltf.scene;
@@ -216,32 +210,38 @@ function loadMando() {
     });
 }
 
-
-// -------------------------------------------
-// FUNCIÓN DE SCROLL (Zoom y Aparición del Mando)
-// -------------------------------------------
 const SCROLL_THRESHOLD = 50;
 const MANDO_SCROLL_OFFSET = 25;
+
+// Referencia al elemento de la tabla
+const futureTable = document.getElementById('future-games-table');
 
 window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
 
-    // Interpolación de la cámara (zoom-in suave)
+    // --- Lógica existente de la cámara ---
     const tCamera = Math.min(1, scrollY / SCROLL_THRESHOLD);
     camera.position.y = THREE.MathUtils.lerp(INITIAL_CAMERA_Y, SCROLL_CAMERA_Y, tCamera);
 
-    // Mover el mando si está cargado
+    // --- Lógica existente del mando ---
     if (mandoObject) {
-        // Calculamos t para el mando, asegurando que solo suba después del offset
         const mandoScrollValue = Math.max(0, scrollY - MANDO_SCROLL_OFFSET);
         const tMando = Math.min(1, mandoScrollValue / SCROLL_THRESHOLD);
 
-        // Mueve el mando desde INITIAL_MANDO_Y (oculto) a FINAL_MANDO_Y (visible) 
         mandoObject.position.y = THREE.MathUtils.lerp(
             mandoObject.initialY,
             mandoObject.targetY,
             tMando
         );
+    }
+
+    // --- NUEVA LÓGICA: Aparecer tabla de juegos ---
+    // Si el usuario baja más de 150px, añadimos la clase 'aparecer'
+    if (scrollY > 150) {
+        futureTable.classList.add('aparecer');
+    } else {
+        // Opcional: quitar la clase si vuelve arriba
+        futureTable.classList.remove('aparecer');
     }
 });
 
@@ -287,9 +287,7 @@ window.addEventListener("click", (e) => {
     }
 });
 
-// -------------------------------------------
-// LOOP DE RENDER (Rotación Individual)
-// -------------------------------------------
+
 function animate() {
     requestAnimationFrame(animate);
 
@@ -349,7 +347,5 @@ window.addEventListener("resize", () => {
     camera.updateProjectionMatrix();
 });
 
-// Cuando cargues el modelo de la carta y el dado, usa el mismo valor de escala.
-// Ejemplo:
 loadModel('model-carta', './modelos/carta.glb', 1.6);
 loadModel('model-dado', './modelos/dado.glb', 1.6);

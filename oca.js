@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-function loadModel(containerId, modelPath, escala = 2.6, ajusteDesplazamiento = null, ajusteRotacion = null, rotationSpeed = 0.04) {
+function loadModel(containerId, modelPath, escala = 2.6, ajusteDesplazamiento = null, ajusteRotacion = null, rotationSpeed = 0.04, spotlightConfig = null) {
     console.log('Cargando modelo:', containerId, modelPath);
     const container = document.getElementById(containerId);
 
@@ -36,6 +36,38 @@ function loadModel(containerId, modelPath, escala = 2.6, ajusteDesplazamiento = 
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLight2.position.set(-5, 3, -5);
     scene.add(directionalLight2);
+
+    // Spotlight si se configura
+    if (spotlightConfig) {
+        const spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.intensity = spotlightConfig.intensity || 50;
+        spotLight.angle = spotlightConfig.angle || Math.PI / 6;
+        spotLight.penumbra = spotlightConfig.penumbra || 0.3;
+        spotLight.decay = spotlightConfig.decay || 1;
+        spotLight.distance = spotlightConfig.distance || 0; // 0 = infinito
+
+        // Posición
+        const px = spotlightConfig.position?.x ?? 5;
+        const py = spotlightConfig.position?.y ?? 10;
+        const pz = spotlightConfig.position?.z ?? 5;
+        spotLight.position.set(px, py, pz);
+
+        // Habilitar sombras si se desea (opcional, requiere configurar renderer shadowMap)
+        spotLight.castShadow = true;
+
+        // Target
+        if (spotlightConfig.target) {
+            spotLight.target.position.set(
+                spotlightConfig.target.x || 0,
+                spotlightConfig.target.y || 0,
+                spotlightConfig.target.z || 0
+            );
+            scene.add(spotLight.target);
+        }
+
+        scene.add(spotLight);
+        console.log(`Spotlight añadido a ${containerId}`);
+    }
 
     // Cargar modelo GLB
     const loader = new GLTFLoader();
@@ -373,6 +405,20 @@ document.addEventListener('DOMContentLoaded', () => {
     loadModel('model-cuboR', './modelos/cuborojo1.glb', 1.8, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
     loadModel('model-cuboAz', './modelos/cuboazul1.glb', 1.9, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
     loadModel('model-cuboV', './modelos/cuboverde1.glb', 2, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
-    loadModel('model-dado', './modelos/dado2.glb', 1.6, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 });
-    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7, { x: 0, y: 0.5, z: 0 }, { x: 0.6, y: 3.14, z: 0 }, 0);
+    // Dado con Spotlight intenso y enfocado
+    loadModel('model-dado', './modelos/dado9.glb', 1.6, { x: 0, y: -0.5, z: 0 }, { x: 0, y: 0, z: 0 }, 0.04, {
+        intensity: 80,
+        position: { x: 2, y: 5, z: 2 },
+        angle: 0.5,
+        penumbra: 0.4
+    });
+
+    // Tablero con Spotlight más amplio para iluminarlo todo
+    loadModel('model-tablero', './modelos/tablerooca2.glb', 1.7, { x: 0, y: 0.5, z: 0 }, { x: 0.6, y: 3.14, z: 0 }, 0, {
+        intensity: 10,
+        position: { x: 0, y: 10, z: 5 }, // Desde arriba y un poco al frente
+        angle: 0.8,
+        penumbra: 0.5,
+        target: { x: 0, y: 0, z: 0 }
+    });
 }

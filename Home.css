@@ -1,45 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap');
 
 /* =======================================
-   VARIABLES DE COLOR (Modern Premium Dark)
+   VARIABLES DE COLOR (Originales)
    ======================================= */
 :root {
     --bg-main: #0f172a;
-    /* Slate 900 */
     --bg-surface: #1e293b;
-    /* Slate 800 */
     --bg-surface-hover: #334155;
-    /* Slate 700 */
-
     --primary: #3b82f6;
-    /* Blue 500 */
     --primary-hover: #2563eb;
-    /* Blue 600 */
     --secondary: #8b5cf6;
-    /* Violet 500 */
-
     --text-main: #f8fafc;
-    /* Slate 50 */
     --text-muted: #94a3b8;
-    /* Slate 400 */
-
     --border-color: #334155;
-    /* Slate 700 */
-
     --glass-bg: rgba(15, 23, 42, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
-
     --radius-lg: 16px;
     --radius-md: 8px;
     --radius-full: 9999px;
-
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* =======================================
-   ANIMACIONES (Premium & Dynamic)
+   ANIMACIONES (Originales)
    ======================================= */
 @keyframes fadeIn {
     from {
@@ -75,31 +60,13 @@
     }
 }
 
-@keyframes pulseGlow {
-    0% {
-        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+@keyframes rotateLight {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
     }
 
-    70% {
-        box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
-    100% {
-        transform: translateY(0px);
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
@@ -117,19 +84,28 @@
     }
 }
 
+/* =======================================
+   ESTILOS BASE Y CORRECCIÓN DE SCROLL
+   ======================================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html,
 body {
-    font-family: 'Exo 2', system-ui, -apple-system, sans-serif;
+    min-width: 100%;
+    overflow-x: hidden;
+    /* Crucial para quitar el scroll lateral */
+}
+
+body {
+    font-family: 'Exo 2', sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
-    overflow-y: auto;
-    height: 100vh;
-    /* Animated Gradient Background */
+    min-height: 125vh;
+    /* Altura para permitir scroll corto */
     background: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%),
         var(--bg-main);
@@ -137,32 +113,8 @@ body {
     animation: fadeIn 1s ease-out, gradientMove 15s ease infinite;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--text-main);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    transition: color 0.3s ease;
-}
-
-a {
-    color: var(--text-main);
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-a:hover {
-    color: var(--primary);
-    transform: scale(1.05);
-}
-
 /* ===============================
-   Splash Screen
+   SPLASH SCREEN (Tu original)
    =============================== */
 #splash-screen {
     position: fixed;
@@ -188,17 +140,12 @@ a:hover {
 #splash-screen h2 {
     font-size: 3.5rem;
     margin-bottom: 2rem;
-    background: linear-gradient(to right, var(--text-main), var(--text-muted));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: slideUp 1s ease-out;
+    font-family: 'Orbitron';
 }
 
-/* Botón con animación de luz trasera "Backlight" */
 #splash-screen button {
     position: relative;
-    background-color: transparent;
+    background: transparent;
     color: var(--primary);
     border: none;
     padding: 15px 40px;
@@ -206,80 +153,43 @@ a:hover {
     font-weight: bold;
     border-radius: var(--radius-md);
     cursor: pointer;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
     text-transform: uppercase;
-    letter-spacing: 2px;
     z-index: 1;
     overflow: hidden;
-    /* Para contener los efectos si fuera necesario */
-    transition: color 0.3s;
-    box-shadow: none;
-    /* Quitamos sombras por defecto */
-    animation: slideUp 1s ease-out 0.2s backwards;
-    /* Mantenemos slideUp pero quitamos pulseGlow */
 }
 
-/* El fondo del botón (negro/rosado oscuro) para tapar la luz central */
 #splash-screen button::after {
     content: '';
     position: absolute;
     inset: 3px;
-    /* El borde visible será de 3px */
     background: var(--bg-main);
-    /* El color del fondo */
     border-radius: calc(var(--radius-md) - 3px);
     z-index: -1;
 }
 
-/* La luz animada por detrás */
 #splash-screen button::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 250%;
-    /* Mucho más grande que el botón para q al rotar cubra todo */
     height: 250%;
-    background: conic-gradient(from 0deg,
-            transparent 0%,
-            var(--primary) 20%,
-            var(--secondary) 40%,
-            var(--primary) 60%,
-            transparent 100%);
+    background: conic-gradient(from 0deg, transparent 0%, var(--primary) 20%, var(--secondary) 40%, var(--primary) 60%, transparent 100%);
     transform: translate(-50%, -50%);
     z-index: -2;
     animation: rotateLight 4s linear infinite;
 }
 
-@keyframes rotateLight {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
-
-#splash-screen button:hover {
-    color: var(--text-main);
-    text-shadow: 0 0 10px var(--primary);
-    transform: translateY(-2px);
-}
-
-/* Aceleramos la rotación al hacer hover para feedback */
-#splash-screen button:hover::before {
-    animation-duration: 1.5s;
-}
-
 /* ===============================
-   Header & Footer
+   HEADER (Tu original exacto)
    =============================== */
-header,
-footer {
+header {
     position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
+    height: 90px;
     z-index: 50;
     padding: 0 40px;
     backdrop-filter: blur(12px);
@@ -287,32 +197,9 @@ footer {
     border-bottom: 1px solid var(--glass-border);
     display: flex;
     align-items: center;
-    animation: slideDown 0.8s ease-out;
-}
-
-header {
-    top: 0;
-    height: 90px;
     justify-content: space-between;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-}
-
-footer {
-    bottom: 0;
-    height: 60px;
-    justify-content: center;
-    border-top: 1px solid var(--glass-border);
-    border-bottom: none;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    animation: slideUp 0.8s ease-out;
-}
-
-/* Header Specifics */
-.header-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    animation: slideDown 0.8s ease-out;
 }
 
 .header-left h1 {
@@ -321,39 +208,33 @@ footer {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
     font-weight: 800;
     letter-spacing: 2px;
-    margin-bottom: 2px;
     text-transform: uppercase;
 }
 
 .header-left h3 {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Exo 2';
     font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 1px;
     color: var(--text-muted);
 }
 
-/* Contenedor central de navegación y búsqueda */
 .header-actions {
     display: flex;
     align-items: center;
     gap: 2rem;
 }
 
-/* Navegación dentro del Header */
 .header-nav {
     display: flex;
     gap: 2rem;
 }
 
 .header-nav a {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron';
     font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--text-main);
     text-decoration: none;
@@ -362,7 +243,6 @@ footer {
     transition: color 0.3s;
 }
 
-/* Subrayado animado */
 .header-nav a::after {
     content: '';
     position: absolute;
@@ -382,7 +262,7 @@ footer {
     width: 100%;
 }
 
-/* Search Input in Header (Modified) */
+/* Buscador Header */
 #header-search-container {
     display: flex;
     align-items: center;
@@ -391,65 +271,30 @@ footer {
 }
 
 #header-search-input {
-    /* Initial State: Only Icon Space visible (visually) */
-    width: 40px;
+    width: 0px;
     height: 40px;
     background-color: transparent;
-    /* Transparent initially */
-    backdrop-filter: none;
     border: 1px solid transparent;
-    /* No border initially */
     color: transparent;
-    /* Hide text initially */
     border-radius: 9999px;
     padding: 0 10px 0 40px;
-    /* Padding for icon */
     font-size: 1rem;
-    font-family: 'Exo 2', sans-serif;
-    letter-spacing: 0.5px;
     cursor: pointer;
-    /* Clickable area */
-
-    /* Transitions */
-    transition:
-        width 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        color 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Expanded State (triggered by class or focus) */
-#header-search-container.expanded #header-search-input,
 #header-search-input:focus {
     width: 300px;
     background-color: rgba(30, 41, 59, 0.8);
-    /* Darker glass background */
-    backdrop-filter: blur(12px);
     border-color: rgba(59, 130, 246, 0.5);
-    /* Primary Border */
     color: var(--text-main);
     cursor: text;
-    box-shadow:
-        0 0 0 4px rgba(59, 130, 246, 0.1),
-        0 10px 20px -5px rgba(0, 0, 0, 0.3);
     outline: none;
-}
-
-#header-search-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#header-search-container.expanded #header-search-input::placeholder,
-#header-search-input:focus::placeholder {
-    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 #toggle-header-search {
     position: absolute;
-    /* Absolute inside container */
     left: 0;
     top: 0;
     width: 40px;
@@ -457,91 +302,111 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: transparent;
     z-index: 2;
-    /* Still clickable */
     pointer-events: none;
-    /* Let clicks pass to input, essentially */
     color: var(--text-muted);
-    transition: all 0.3s ease;
-}
-
-#header-search-container.expanded #toggle-header-search,
-#header-search-input:focus~#toggle-header-search {
-    color: var(--primary);
-    transform: scale(0.9);
-}
-
-
-
-
-/* ===============================
-   Side Menu
-   =============================== */
-#right-menu {
-    position: fixed;
-    top: 50%;
-    right: 24px;
-    transform: translateY(-50%);
-    z-index: 40;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 16px;
-    box-shadow: var(--shadow-lg);
-    animation: fadeIn 1s ease-out 0.5s backwards;
-}
-
-.side-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.side-nav a {
-    padding: 10px 16px;
-    border-radius: var(--radius-md);
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    text-align: left;
-    transition: all 0.2s ease;
-}
-
-.side-nav a:hover {
-    background-color: var(--bg-surface-hover);
-    color: var(--text-main);
-    transform: translateX(5px);
-}
-
-.side-nav .search-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--bg-surface-hover);
-    margin: 0 auto 8px;
-    color: var(--primary);
-    transition: all 0.3s ease;
-}
-
-.side-nav .search-icon:hover {
-    background-color: var(--primary);
-    color: white;
-    transform: rotate(90deg);
 }
 
 /* ===============================
-   Modal
+   3D CANVAS Y FOOTER
    =============================== */
-.modal-overlay {
+#three-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    background-color: var(--glass-bg);
+    border-top: 1px solid var(--glass-border);
+    z-index: 50;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+#future-games-table {
+    display: block;
+    position: relative;
+    /* Aumentamos el margen superior de 20vh a 60vh para que esté más abajo */
+    /* Reducimos el margen inferior a 40px para que no haya hueco al final */
+    margin: 60vh auto 40px auto;
+
+    width: 90%;
+    max-width: 650px;
+    z-index: 15;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+#future-games-table.aparecer {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.table-content {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.table-title {
+    font-family: 'Orbitron';
+    color: var(--text-main);
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.game-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.game-card {
+    flex: 1;
+    background: var(--bg-main);
+    padding: 20px 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+}
+
+.lock-icon {
+    font-size: 2.5em;
+    color: var(--secondary);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* ===============================
+   MODAL (Tu original)
+   =============================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     display: flex;
@@ -564,148 +429,6 @@ footer {
     padding: 32px;
     border-radius: var(--radius-lg);
     text-align: center;
-    box-shadow: var(--shadow-lg);
     max-width: 400px;
     width: 90%;
-    transform: scale(0.95);
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.modal-overlay.visible .modal-content {
-    transform: scale(1);
-    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.modal-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.modal-content p {
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    line-height: 1.5;
-}
-
-.modal-content button {
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
-}
-
-.modal-content button:hover {
-    background-color: var(--primary-hover);
-    transform: scale(1.05);
-}
-
-/* ===============================
-   3D Canvas
-   =============================== */
-#three-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    animation: fadeIn 2s ease-out;
-}
-
-/* ===============================
-    Textos sobre la escena 3D (REEMPLAZADO POR TEXTO 3D EN JS)
-    =============================== */
-/* Se eliminaron .neon-text-container y .neon-title porque ahora son objetos 3D */
-
-
-/* ===============================
-    Tabla de Futuros Juegos (Scroll)
-    =============================== */
-#future-games-table {
-    position: fixed;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 650px;
-    max-width: 95%;
-    z-index: 15;
-    padding: 20px;
-    pointer-events: none;
-    opacity: 0;
-    transition: bottom 0.8s ease-out, opacity 0.8s ease-out;
-}
-
-.table-content {
-    /* Fondo: Superficie premium */
-    background: var(--bg-surface);
-    border-radius: var(--radius-lg);
-    padding: 25px;
-    text-align: center;
-
-    /* Efecto de borde sutil */
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
-}
-
-.table-content:hover {
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);
-}
-
-.table-title {
-    color: var(--text-main);
-    font-size: 1.6rem;
-    /* Aumentado */
-    margin-bottom: 20px;
-    font-weight: 600;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
-    font-family: 'Orbitron', sans-serif;
-}
-
-.game-cards {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    margin-bottom: 10px;
-}
-
-.game-card {
-    flex-grow: 1;
-    background: var(--bg-main);
-    padding: 20px 15px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, border-color 0.3s;
-}
-
-.game-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--primary);
-}
-
-.lock-icon {
-    font-size: 2.5em;
-    color: var(--secondary);
-    /* Púrpura */
-    display: block;
-    margin-bottom: 10px;
-}
-
-.game-card p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    /* Aumentado */
-    font-family: 'Exo 2', sans-serif;
-}
-
-.gamepad-icon {
-    font-size: 2.5rem;
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-    margin-top: 10px;
 }
